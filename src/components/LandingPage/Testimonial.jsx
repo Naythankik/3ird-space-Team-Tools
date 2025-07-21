@@ -30,9 +30,9 @@ const Testimonial = () => {
 
     return (
         <section id="testimonials" className="py-28 bg-white">
-            <div className="flex flex-col items-center gap-4 w-[95%] lg:w-[75%] mx-auto">
+            <div className="flex flex-col items-center text-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl">Loved by teams worldwide</h2>
-                <p className="text-gray-500 w-3/5 text-center text-xl">See what our customers have to say about 3irdSpace.</p>
+                <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">See what our customers have to say about 3irdSpace.</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 w-full">
                     {testimonials.map(({ name, info, comment, image }, idx) => (
