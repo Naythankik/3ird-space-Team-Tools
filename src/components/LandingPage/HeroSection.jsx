@@ -33,7 +33,7 @@ const HeroSection = () => {
                 <h2 className="font-bold text-3xl md:text-5xl">
                     Streamline your team's workflow
                 </h2>
-                <p className="text-2xl">
+                <p className="text-lg md:text-2xl">
                     3irdSpace helps your team organize projects, manage tasks, and meet deadlines, all in one collaborative workspace.
                 </p>
                 <div className="flex gap-5">
