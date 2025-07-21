@@ -41,7 +41,7 @@ const features = [
 
 const FeatureSection = () => {
     return (
-        <section id="features" className="py-28 bg-white">
+        <section id="features" className="py-14 md:py-28 bg-white">
             <div className="flex flex-col items-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl text-center">Everything your team needs to succeed</h2>
                 <p className="text-gray-500 md:w-3/5 text-center text-xl">Powerful features designed to keep your team organized, focused, and productive.</p>

@@ -26,11 +26,11 @@ const HeroSection = () => {
     ]
 
     return (
-        <section className="py-28 bg-indigo-600">
+        <section className="py-14 md:py-28 bg-indigo-600">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10 w-[95%] lg:w-[75%] mx-auto">
             {/* Left Section */}
             <div className="grid gap-4 text-white">
-                <h2 className="font-bold text-5xl">
+                <h2 className="font-bold text-3xl md:text-5xl">
                     Streamline your team's workflow
                 </h2>
                 <p className="text-2xl">

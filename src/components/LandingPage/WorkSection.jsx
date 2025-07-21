@@ -61,16 +61,16 @@ const WorkSection = () => {
     ]
 
     return (
-        <section id="how-it-works" className="py-28 bg-gray-200">
-            <div className="flex flex-col items-center gap-4 w-[95%] lg:w-[75%] mx-auto">
+        <section id="how-it-works" className="py-14 md:py-28 bg-gray-200">
+            <div className="flex flex-col items-center text-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl">How 3irdSpace works</h2>
-                <p className="text-gray-500 w-3/5 text-center text-xl">Get your team up and running in minutes with our intuitive platform.</p>
+                <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">Get your team up and running in minutes with our intuitive platform.</p>
                 <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-8">
                     <div className="grid grid-cols-1 gap-8">
                         {processes.map(({ title, description }, idx) => (
-                            <div key={idx} className="flex gap-3 p-5">
-                                <div className="bg-indigo-500 h-9 md:h-12 w-12 md:w-20 flex items-center justify-center rounded-lg">
-                                    <p className="text-white text-lg font-bold">{ idx + 1 }</p>
+                            <div key={idx} className="flex gap-3 p-5 text-left">
+                                <div className="bg-indigo-500 h-10 md:h-12 w-20 flex items-center justify-center rounded-lg">
+                                    <p className="text-white text-base md:text-lg font-bold">{ idx + 1 }</p>
                                 </div>
                                 <div className="grid gap-3">
                                     <h3 className="font-medium text-lg">{title}</h3>
@@ -83,11 +83,11 @@ const WorkSection = () => {
                     {/*------------------ Top right section ----------------*/}
                     <div className="block rounded-md bg-white shadow-lg overflow-hidden">
                         <StatusDotComponent />
-                        <div className="p-4">
+                        <div className="p-4 text-left">
                             <div className="flex justify-between items-center mb-2">
                                 <h3 className="font-medium text-xl">Website Redesign</h3>
                                 <div className="flex gap-2 items-center">
-                                    <p className="rounded-3xl bg-yellow-200 p-1 text-sm text-yellow-950 px-2">In Progress</p>
+                                    <p className="rounded-3xl bg-yellow-200 text-nowrap p-1 text-sm text-yellow-950 px-2">In Progress</p>
                                     <p className="text-sm text-gray-500">Due in 14 days</p>
                                 </div>
                             </div>

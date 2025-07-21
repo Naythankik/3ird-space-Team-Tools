@@ -29,14 +29,14 @@ const Testimonial = () => {
     ];
 
     return (
-        <section id="testimonials" className="py-28 bg-white">
+        <section id="testimonials" className="py-14 md:py-28 bg-white">
             <div className="flex flex-col items-center text-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl">Loved by teams worldwide</h2>
                 <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">See what our customers have to say about 3irdSpace.</p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 w-full text-left">
                     {testimonials.map(({ name, info, comment, image }, idx) => (
-                        <article key={idx} className="flex flex-col gap-4 shadow-lg shadow-blue-100 p-4 rounded-lg border border-gray-300">
+                        <article key={idx} className="flex flex-col gap-4 shadow-lg shadow-blue-100 p-5 rounded-lg border border-gray-300">
                             <div className="flex items-center gap-4">
                                 <img src={image} alt="" className="h-12 w-12 rounded-full" />
                                 <div className="flex flex-col">
