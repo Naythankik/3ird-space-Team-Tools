@@ -1,8 +1,8 @@
 const StatusDotComponent = () => {
     const statusDots = [
-        { color: "red-400" },
-        { color: "yellow-400" },
-        { color: "green-400" },
+        { color: "bg-red-400" },
+        { color: "bg-yellow-400" },
+        { color: "bg-green-400" },
     ];
 
     return (
@@ -10,7 +10,7 @@ const StatusDotComponent = () => {
             {statusDots.map(({ color }, idx) => (
                 <span
                     key={idx}
-                    className={`h-2 w-2 rounded-full bg-${color}`}
+                    className={`h-2 w-2 rounded-full ${color}`}
                 />
             ))}
         </div>
