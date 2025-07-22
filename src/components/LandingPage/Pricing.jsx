@@ -62,7 +62,7 @@ const Pricing = () => {
     const [selectedPrice, setSelectedPrice] = useState(2);
 
     return (
-        <section id="pricing" className="ppy-14 md:y-28 bg-white">
+        <section id="pricing" className="py-14 md:y-28 bg-white">
             <div className="flex flex-col items-center text-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl">Simple, transparent pricing</h2>
                 <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">

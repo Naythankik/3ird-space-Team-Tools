@@ -6,7 +6,7 @@ const StatusDotComponent = () => {
     ];
 
     return (
-        <div className="bg-gray-100 border-b border-gray-200 p-2 flex gap-2">
+        <div className="bg-gray-200 border-b border-gray-200 p-2 flex gap-2">
             {statusDots.map(({ color }, idx) => (
                 <span
                     key={idx}

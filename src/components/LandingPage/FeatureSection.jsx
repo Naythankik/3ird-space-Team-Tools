@@ -48,7 +48,9 @@ const FeatureSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map(({ title, description, icon: Icon }, idx) => (
-                        <div key={idx} className="flex flex-col gap-3 border border-gray-300 rounded-lg p-5">
+                        <div
+                            key={idx}
+                            className="flex cursor-auto flex-col gap-3 border border-gray-300 rounded-lg p-5 transition duration-300 hover:-translate-y-0.5 hover:shadow-md hover:shadow-gray-300">
                             <div className="bg-indigo-100 w-fit p-2 rounded-lg">
                                 <Icon className="h-8 w-8 text-indigo-600" />
                             </div>

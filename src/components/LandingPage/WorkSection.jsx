@@ -61,10 +61,12 @@ const WorkSection = () => {
     ]
 
     return (
-        <section id="how-it-works" className="py-14 md:py-28 bg-gray-200">
+        <section id="how-it-works" className="py-14 md:py-28 bg-gray-100">
             <div className="flex flex-col items-center text-center gap-4 w-[95%] lg:w-[75%] mx-auto">
                 <h2 className="font-semibold text-4xl">How 3irdSpace works</h2>
-                <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">Get your team up and running in minutes with our intuitive platform.</p>
+                <p className="text-gray-500 w-full md:w-3/5 text-center text-xl">
+                    Get your team up and running in minutes with our intuitive platform.
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-8">
                     <div className="grid grid-cols-1 gap-8">
                         {processes.map(({ title, description }, idx) => (
@@ -95,7 +97,7 @@ const WorkSection = () => {
                             <ProgressBar title='Overall Progress' value='65%' />
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <div className="flex flex-col gap-2 bg-gray-100 p-2 rounded-md">
+                                <div className="flex flex-col gap-2 bg-gray-100 p-4 rounded-md">
                                     <div className="flex justify-between items-center">
                                         <p className="font-semibold">Tasks</p>
                                         <div className="flex text-indigo-600 font-medium items-center">
@@ -121,7 +123,7 @@ const WorkSection = () => {
                                     ))}
                                 </div>
 
-                                <div className="flex flex-col gap-2 bg-gray-100 p-2 rounded-md">
+                                <div className="flex flex-col gap-2 bg-gray-100 p-4 rounded-md">
                                     <div className="flex justify-between items-center">
                                         <p className="font-semibold">Team</p>
                                         <div className="flex text-indigo-600 font-medium items-center">

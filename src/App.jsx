@@ -1,12 +1,13 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import LandingPage from "./pages/public/LandingPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
-        // element: <Home />,
+        errorElement: <ErrorPage />
     },
     {
         element: <PrivateRoute />,
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
                 // element: <Dashboard />,
             },
         ],
+        errorElement: <ErrorPage />
     },
 ]);
 
