@@ -10,7 +10,7 @@ const Header = () => {
     };
 
     return (
-        <header className="py-4 shadow-md bg-white sticky top-0 z-50">
+        <header className="py-4 shadow-md bg-white sticky top-0 z-50 w-full">
             <div className="flex items-center justify-between w-[95%] lg:w-[75%] mx-auto">
                 {/* Logo Section */}
                 <Link to="/" className="flex items-center gap-2">
