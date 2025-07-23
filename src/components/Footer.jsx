@@ -48,13 +48,13 @@ const Footer = () => {
                     </p>
                     <div className="flex gap-3 mt-2">
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                            <BsTwitter className="text-gray-600 hover:text-blue-500 cursor-pointer" />
+                            <BsTwitter className="text-gray-600 hover:text-blue-500 cursor-pointer text-3xl" />
                         </a>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                            <BiLogoInstagram className="text-gray-600 hover:text-pink-500 cursor-pointer" />
+                            <BiLogoInstagram className="text-gray-600 hover:text-pink-500 cursor-pointer text-3xl" />
                         </a>
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                            <BiLogoFacebook className="text-gray-600 hover:text-blue-700 cursor-pointer" />
+                            <BiLogoFacebook className="text-gray-600 hover:text-blue-700 cursor-pointer text-3xl" />
                         </a>
                     </div>
                 </div>
