@@ -43,7 +43,7 @@ const Footer = () => {
                         <img src={HomeIcon} alt="3irdSpace Logo" className="h-8 w-8" />
                         <p className="text-lg font-bold">3irdSpace</p>
                     </Link>
-                    <p className="text-gray-500 text-sm">
+                    <p className="text-gray-500 text-base">
                         Streamline your team's workflow with our intuitive project and task management platform.
                     </p>
                     <div className="flex gap-3 mt-2">
