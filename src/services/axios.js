@@ -16,4 +16,21 @@ instance.interceptors.response.use((config) => {
     return config;
 }, (error) => Promise.reject(error))
 
+// axiosClient.js
+instance.interceptors.response.use(
+    res => res,
+    async error => {
+        const originalRequest = error.config;
+
+        if (error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            await instance.post('/user/refresh-token', {}, { withCredentials: true });
+            return axios(originalRequest); // retry with a new token
+        }
+
+        return Promise.reject(error);
+    }
+);
+
+
 export default instance
