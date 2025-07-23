@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import {BsTwitter} from "react-icons/bs";
 import {BiLogoFacebook, BiLogoInstagram} from "react-icons/bi";
+import HomeIcon from "../assets/logo.png";
 
 const Footer = () => {
     const navLinks = [
@@ -39,9 +40,7 @@ const Footer = () => {
                 {/* Branding & Socials */}
                 <div className="flex flex-col gap-4 max-w-sm">
                     <Link to="/" className="flex items-center gap-2">
-                        <svg className="h-8 w-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                        </svg>
+                        <img src={HomeIcon} alt="3irdSpace Logo" className="h-8 w-8" />
                         <p className="text-lg font-bold">3irdSpace</p>
                     </Link>
                     <p className="text-gray-500 text-sm">
@@ -69,7 +68,7 @@ const Footer = () => {
                                 <a
                                     key={idx}
                                     href={link.href}
-                                    className="text-gray-600 text-base hover:text-indigo-600 transition-colors"
+                                    className="text-gray-600 text-base w-fit hover:text-indigo-600 transition-colors"
                                 >
                                     {link.name}
                                 </a>

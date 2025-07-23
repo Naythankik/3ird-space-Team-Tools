@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MenuIcon, XIcon } from "lucide-react";
+import HomeIcon from '../assets/logo.png'
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -14,9 +15,7 @@ const Header = () => {
             <div className="flex items-center justify-between w-[95%] lg:w-[75%] mx-auto">
                 {/* Logo Section */}
                 <Link to="/" className="flex items-center gap-2">
-                    <svg className="h-8 w-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
+                    <img src={HomeIcon} alt="3irdSpace Logo" className="h-8 w-8" />
                     <p className="text-lg font-bold">3irdSpace</p>
                 </Link>
 
