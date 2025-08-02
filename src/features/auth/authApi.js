@@ -4,8 +4,10 @@ import handleAxiosError from '../../utils/handleAxiosError.js'
 class AuthApi {
     login = async (credentials) => {
         try {
-            const res = await axios.post("/auth/login", credentials);
-            return res.data;
+            const { data, status } = await axios.post("/auth/login", credentials);
+            // dunno what to do with the token sent from the API
+            // and the return user data, after successful login
+
         } catch (error) {
             throw handleAxiosError(error);
         }

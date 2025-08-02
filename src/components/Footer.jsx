@@ -8,8 +8,8 @@ const Footer = () => {
         {
             header: 'Product',
             links: [
-                { name: 'Features', href: '/#features' },
-                { name: 'Pricing', href: '/#pricing' },
+                { name: 'Features', href: '/features' },
+                { name: 'Pricing', href: '/pricing' },
                 { name: 'Integrations', href: '#' },
                 { name: 'Updates', href: '#' }
             ]
@@ -17,8 +17,8 @@ const Footer = () => {
         {
             header: 'Company',
             links: [
-                { name: 'About', href: '/#about' },
-                { name: 'Blog', href: '/#blog' },
+                { name: 'About', href: '/about' },
+                { name: 'Blog', href: '/blog' },
                 { name: 'Careers', href: '/#careers' },
                 { name: 'Press', href: '/#press' }
             ]
@@ -26,10 +26,10 @@ const Footer = () => {
         {
             header: 'Support',
             links: [
-                { name: 'Help Center', href: '/#help-center' },
+                { name: 'Help Center', href: '/help-center' },
                 { name: 'Documentation', href: '/#documentation' },
                 { name: 'Guides', href: '/#guides' },
-                { name: 'Contact Us', href: '/#contact-us' }
+                { name: 'Contact Us', href: '/contact-us' }
             ]
         }
     ];

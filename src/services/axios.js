@@ -20,13 +20,13 @@ instance.interceptors.response.use((config) => {
 instance.interceptors.response.use(
     res => res,
     async error => {
-        const originalRequest = error.config;
+        // const originalRequest = error.config;
 
-        if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-            await instance.post('/user/refresh-token', {}, { withCredentials: true });
-            return axios(originalRequest); // retry with a new token
-        }
+        // if (error.response.status === 401 && !originalRequest._retry) {
+        //     originalRequest._retry = true;
+        //     await instance.post('/user/refresh-token', {}, { withCredentials: true });
+        //     return axios(originalRequest); // retry with a new token
+        // }
 
         return Promise.reject(error);
     }

@@ -132,8 +132,8 @@ const WorkSection = () => {
                                         </div>
                                     </div>
                                     { teams.map(({ initials, name, role, color }, idx) => (
-                                        <div className="flex gap-4 items-center">
-                                            <p key={idx} className={`uppercase ${color} w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold text-sm`}>{initials}</p>
+                                        <div key={idx} className="flex gap-4 items-center">
+                                            <p className={`uppercase ${color} w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold text-sm`}>{initials}</p>
                                             <div className="grid gap-1">
                                                 <p>{name}</p>
                                                 <p className="font-normal text-sm text-gray-600">{role}</p>
@@ -147,8 +147,8 @@ const WorkSection = () => {
                                 <p>Recent Activity</p>
                                 <div className="flex flex-col mt-3">
                                     { teams.map(({ initials, name, description, color, date }, idx) => (
-                                        <div className={`${idx < 2 ? 'flex' : 'hidden'} gap-4 items-center`}>
-                                            <p key={idx} className={`uppercase ${color} w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold text-sm`}>{initials}</p>
+                                        <div key={idx} className={`${idx < 2 ? 'flex' : 'hidden'} gap-4 items-center`}>
+                                            <p className={`uppercase ${color} w-8 h-8 flex items-center justify-center rounded-full text-white font-semibold text-sm`}>{initials}</p>
                                             <div className="grid gap-1">
                                                 <p>
                                                     <span className="font-medium">{name} </span>
