@@ -1,50 +1,66 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import authApi from "../features/auth/authApi";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [authLoading, setAuthLoading] = useState(true);
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
+    const [accessToken, setAccessToken] = useState(() => {
+        return localStorage.getItem("accessToken") || null;
+    });
+
+    const [authLoading, setAuthLoading] = useState(false);
+
+    const saveToStorage = (user, token) => {
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", token);
+    };
+
+    const clearStorage = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("accessToken");
+    };
 
     const login = async (credentials) => {
-        const data = await authApi.login(credentials);
-        localStorage.setItem("token", data.token);
-        setUser(data.user);
-    };
-
-    const logout = async () => {
-        await authApi.logout();
-        localStorage.removeItem("token");
-        setUser(null);
-    };
-
-    const fetchCurrentUser = async () => {
+        setAuthLoading(true);
         try {
-            const user = await authApi.getCurrentUser();
+            const {
+                data: { access_token, user },
+            } = await authApi.login(credentials);
+            setAccessToken(access_token);
             setUser(user);
-        } catch (err) {
-            console.error("Auth check failed:", err);
-            setUser(null);
+            saveToStorage(user, access_token);
+            return true;
+        } catch (error) {
+            throw error;
         } finally {
             setAuthLoading(false);
         }
     };
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) fetchCurrentUser();
-        else setAuthLoading(false);
-    }, []);
+    const logout = async () => {
+        try {
+            await authApi.logout();
+        } catch (_) {}
+
+        setAccessToken(null);
+        setUser(null);
+        clearStorage();
+    };
 
     return (
         <AuthContext.Provider
             value={{
                 user,
-                login,
-                logout,
+                accessToken,
                 authLoading,
                 isAuthenticated: !!user,
+                login,
+                logout,
             }}
         >
             {children}

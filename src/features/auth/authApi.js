@@ -3,10 +3,15 @@ import handleAxiosError from '../../utils/handleAxiosError.js'
 
 class AuthApi {
     login = async (credentials) => {
+        const { identifier, password } = credentials
+
         try {
-            const { data, status } = await axios.post("/auth/login", credentials);
-            // dunno what to do with the token sent from the API
-            // and the return user data, after successful login
+            const { data } = await axios.post("/auth/login", {
+                identifier,
+                password
+            }, { withCredentials: true});
+
+            return data
 
         } catch (error) {
             throw handleAxiosError(error);
@@ -24,7 +29,7 @@ class AuthApi {
 
     logout = async () => {
         try {
-            const res = await axios.post("/auth/logout");
+            const res = await axios.post("/user/logout");
             return res.data;
         } catch (error) {
             throw handleAxiosError(error);
@@ -33,8 +38,8 @@ class AuthApi {
 
     getCurrentUser = async () => {
         try {
-            const res = await axios.get("/auth/me"); // or /auth/user
-            return res.data;
+            const { data: {data: user} } = await axios.get("/user/me");
+            return user;
         } catch (error) {
             throw handleAxiosError(error);
         }
@@ -42,9 +47,12 @@ class AuthApi {
 
     refreshToken = async () => {
         try {
-            const res = await axios.post("/auth/refresh-token");
+            const res = await axios.post("/auth/refresh-token", {}, {
+                withCredentials: true
+            });
             return res.data;
         } catch (error) {
+            console.log({error})
             throw handleAxiosError(error);
         }
     };
@@ -84,7 +92,6 @@ class AuthApi {
             throw handleAxiosError(error);
         }
     };
-
 
 }
 

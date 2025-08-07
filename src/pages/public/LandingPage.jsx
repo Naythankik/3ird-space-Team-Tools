@@ -21,7 +21,7 @@ const LandingPage = () => {
                 <h2 className="text-white text-4xl font-bold">Ready to streamline your team's workflow?</h2>
                 <p className="text-white text-xl">Start your 14-day free trial today. No credit card required.</p>
                 <div className="flex gap-5">
-                    <Link className="rounded-md bg-white text-indigo-500 w-full text-nowrap py-3 px-4 flex items-center justify-center font-medium text-lg" to="#">
+                    <Link className="rounded-md bg-white text-indigo-500 w-full text-nowrap py-3 px-4 flex items-center justify-center font-medium text-lg" to="/login">
                         Get started for free
                     </Link>
                     <Link className="rounded-md bg-indigo-700 text-white w-full text-nowrap py-3 px-4 flex items-center justify-center font-medium text-lg" to="#">

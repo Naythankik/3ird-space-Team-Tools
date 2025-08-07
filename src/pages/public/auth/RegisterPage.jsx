@@ -1,5 +1,5 @@
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../../components/Header.jsx";
+import Footer from "../../../components/Footer.jsx";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft, FaApple, FaSlack } from "react-icons/fa";
 import {Link} from "react-router-dom";

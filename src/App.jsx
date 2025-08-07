@@ -2,32 +2,23 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import PrivateRoute from "./routes/PrivateRoute.jsx";
 import LandingPage from "./pages/public/LandingPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
-import LoginPage from "./pages/public/LoginPage.jsx";
-import RegisterPage from "./pages/public/RegisterPage.jsx";
-import ForgotPasswordPage from "./pages/public/ForgotPasswordPage.jsx";
+import LoginPage from "./pages/public/auth/LoginPage.jsx";
+import RegisterPage from "./pages/public/auth/RegisterPage.jsx";
+import ForgotPasswordPage from "./pages/public/auth/ForgotPasswordPage.jsx";
 import AboutPage from "./pages/public/AboutPage.jsx";
 import FeaturesPage from "./pages/public/FeaturesPage.jsx";
 import Contact from "./pages/public/ContactPage.jsx";
 import Blog from "./pages/public/BlogPage.jsx";
 import HelpCenter from "./pages/public/HelpCenter.jsx";
+import Dashboard from "./pages/private/Dashboard.jsx";
+import GuestRoute from "./routes/GuestRoute.jsx";
+import Task from "./pages/private/Task.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
         errorElement: <ErrorPage />
-    },
-    {
-        path: '/login',
-        element: <LoginPage />
-    },
-    {
-        path: '/register',
-        element: <RegisterPage />
-    },
-    {
-        path: '/forgot-password',
-        element: <ForgotPasswordPage />
     },
     {
         path: '/about',
@@ -50,11 +41,33 @@ const router = createBrowserRouter([
         element: <Blog />
     },
     {
+        element: <GuestRoute />,
+        children: [
+            {
+                path: '/login',
+                element: <LoginPage />
+            },
+            {
+                path: '/register',
+                element: <RegisterPage />
+            },
+            {
+                path: '/forgot-password',
+                element: <ForgotPasswordPage />
+            },
+        ],
+        errorElement: <ErrorPage />
+    },
+    {
         element: <PrivateRoute />,
         children: [
             {
                 path: "/dashboard",
-                // element: <Dashboard />,
+                element: <Dashboard />,
+            },
+            {
+                path: "/tasks",
+                element: <Task />,
             },
         ],
         errorElement: <ErrorPage />

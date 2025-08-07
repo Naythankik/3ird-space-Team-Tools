@@ -1,4 +1,5 @@
 import axios from 'axios'
+import authApi from "../features/auth/authApi.js";
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -8,29 +9,45 @@ const instance = axios.create({
     }
 })
 
-instance.interceptors.response.use((config) => {
-    const token = localStorage.getItem("token");
+instance.interceptors.request.use((config) => {
+    const token = localStorage.getItem("accessToken");
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 }, (error) => Promise.reject(error))
 
-// axiosClient.js
 instance.interceptors.response.use(
     res => res,
     async error => {
-        // const originalRequest = error.config;
+        const originalRequest = error.config;
 
-        // if (error.response.status === 401 && !originalRequest._retry) {
-        //     originalRequest._retry = true;
-        //     await instance.post('/user/refresh-token', {}, { withCredentials: true });
-        //     return axios(originalRequest); // retry with a new token
-        // }
+        if (
+            originalRequest._retry ||
+            originalRequest.url.includes('/auth/refresh-token')
+        ) {
+            return Promise.reject(error);
+        }
+
+        if (error.response?.status === 401 && error.response?.data?.message === 'Token expired') {
+            originalRequest._retry = true;
+            try {
+                const response = await authApi.refreshToken();
+                originalRequest.headers.Authorization = `Bearer ${response.data.access_token}`;
+                localStorage.setItem('accessToken', response.data.access_token)
+
+                return instance(originalRequest);
+            } catch (refreshError) {
+                console.error('Refresh failed:', refreshError);
+                return Promise.reject(refreshError);
+            }
+        }
 
         return Promise.reject(error);
     }
 );
+
+
 
 
 export default instance

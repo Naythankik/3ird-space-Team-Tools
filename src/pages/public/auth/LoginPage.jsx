@@ -1,29 +1,27 @@
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
-import { Link } from "react-router-dom";
+import Header from "../../../components/Header.jsx";
+import Footer from "../../../components/Footer.jsx";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
-import authApi from "../../features/auth/authApi.js";
+import {useAuth} from "../../../context/AuthContext.jsx";
 
 const LoginPage = () => {
-    const [identifier, setIdentifier] = useState('')
-    const [password, setPassword] = useState('')
+    const [form, setForm] = useState({identifier: '', password: '', rememberMe: false})
+    const { login  } = useAuth()
+    const navigate = useNavigate();
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
-        const body = JSON.stringify({ identifier, password })
         try {
-            const response = await authApi.login(body);
-            console.log(response)
-
+            const response = await login(form);
+            setLoading(!response)
+            navigate('/dashboard')
         }catch (err){
             setError(err)
         }finally {
-            setTimeout(() => {
-                setLoading(false)
-            }, 3000)
+            setLoading(false)
         }
     }
     return (
@@ -42,8 +40,8 @@ const LoginPage = () => {
                     <label className="block text-sm font-medium text-gray-700">Email/Username</label>
                     <input
                         type="text"
-                        value={identifier}
-                        onChange={(e) => setIdentifier(e.target.value)}
+                        value={form.identifier}
+                        onChange={(e) => setForm({...form, identifier: e.target.value})}
                         required
                         className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                         placeholder="Enter email or username"
@@ -53,16 +51,21 @@ const LoginPage = () => {
                     <label className="block text-sm font-medium text-gray-700">Password</label>
                     <input
                         type="password"
-                        value={password}
+                        value={form.password}
                         required
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setForm({...form, password: e.target.value})}
                         className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                         placeholder="Enter password"
                     />
                 </div>
                 <div className="flex items-center justify-between text-sm">
                     <label className="flex items-center">
-                        <input type="checkbox" className="mr-2 rounded" />
+                        <input
+                            type="checkbox"
+                            checked={form.rememberMe}
+                            onChange={(e) => setForm({...form, rememberMe: e.target.checked})}
+                            className="mr-2 rounded"
+                        />
                         Remember me
                     </label>
                     <Link to="/forgot-password" className="text-indigo-600 hover:underline">Forgot password?</Link>

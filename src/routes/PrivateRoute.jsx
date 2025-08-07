@@ -1,14 +1,14 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Loader from "../components/Loader.jsx";
+import DefaultLayout from "../components/PrivateComponent/DefaultLayout.jsx";
 
 const PrivateRoute = () => {
     const { isAuthenticated, authLoading } = useAuth();
 
-    if (authLoading) {
-        return <div className="text-center mt-10">Loading...</div>;
-    }
+    if (authLoading) return <Loader />;
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+    return isAuthenticated ? <DefaultLayout /> : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;

@@ -1,5 +1,5 @@
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../../components/Header.jsx";
+import Footer from "../../../components/Footer.jsx";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
