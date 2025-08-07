@@ -13,6 +13,7 @@ import HelpCenter from "./pages/public/HelpCenter.jsx";
 import Dashboard from "./pages/private/Dashboard.jsx";
 import GuestRoute from "./routes/GuestRoute.jsx";
 import Task from "./pages/private/Task.jsx";
+import ResetPasswordPage from "./pages/public/auth/ResetPasswordPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
                 path: '/forgot-password',
                 element: <ForgotPasswordPage />
             },
+            {
+                path: '/reset-password/:token',
+                element: <ResetPasswordPage />
+            }
         ],
         errorElement: <ErrorPage />
     },
