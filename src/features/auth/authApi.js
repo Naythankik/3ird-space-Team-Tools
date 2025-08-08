@@ -98,7 +98,7 @@ class AuthApi {
 
     resendVerification = async (email) => {
         try {
-            const res = await axios.post("/auth/resend-verification", { email });
+            const res = await axios.post("/auth/register/request-otp", { email });
             return res.data;
         } catch (error) {
             throw handleAxiosError(error);

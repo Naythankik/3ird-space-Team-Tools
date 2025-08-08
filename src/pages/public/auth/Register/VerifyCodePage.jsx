@@ -22,6 +22,7 @@ const VerifyCodePage = () => {
         newCode[index] = value.slice(-1);
         setCode(newCode);
         setErrorMessage(null);
+        setSuccessMessage(null);
 
         if (value && index < code.length - 1) {
             document.getElementById(`code-${index + 1}`).focus();
@@ -59,6 +60,21 @@ const VerifyCodePage = () => {
             verifyOtp(newCode.join(""), location.state?.email);
         }
     };
+
+    const handleCodeRequest = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+        try{
+            const res = await authApi.resendVerification(location.state?.email)
+            setSuccessMessage(res.message)
+            console.log(res)
+        }catch (err){
+            setErrorMessage(err || "We couldn't send you a code. Please try again later.")
+        }finally {
+            setLoading(false)
+        }
+
+    }
 
     const verifyOtp = async (code, email) => {
         setLoading(true);
@@ -157,9 +173,9 @@ const VerifyCodePage = () => {
                 <div className="text-center text-sm space-y-2 text-gray-600">
                     <p>
                         Can’t find your code?{" "}
-                        <a href="#" className="text-indigo-600 hover:underline">
+                        <button disabled={loading} type="button" onClick={handleCodeRequest} className="text-indigo-600 hover:underline disabled:opacity-25">
                             Request a new code.
-                        </a>
+                        </button>
                     </p>
                     <p>
                         Having trouble?{" "}
