@@ -3,8 +3,39 @@ import Footer from "../../../components/Footer.jsx";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft, FaApple, FaSlack } from "react-icons/fa";
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import {Loader} from "lucide-react";
+import authApi from "../../../features/auth/authApi.js";
 
 const RegisterPage = () => {
+    const [loading, setLoading] = useState(false)
+    const [successMessage, setSuccessMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [email, setEmail] = useState('')
+
+    const handleRegister = async (e) => {
+        e.preventDefault()
+        setErrorMessage(null)
+        setSuccessMessage(null)
+        setLoading(true)
+
+        try{
+            const response = await authApi.registerEmail(email)
+            setSuccessMessage(response.message)
+
+            setTimeout(() => {
+                console.log('redirect to token page')
+            }, 2000)
+        }catch(err){
+            if(err.includes("Token has already been sent")){
+                console.log('show the page for token')
+            }
+            setErrorMessage(err)
+        }finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <main className="bg-gray-100 flex flex-col justify-between min-h-screen">
             <Header />
@@ -13,14 +44,18 @@ const RegisterPage = () => {
                 <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md space-y-6">
                     <div className="text-center space-y-1">
                         <h2 className="text-2xl font-bold text-gray-800">Sign up to continue</h2>
-                        <p className="text-sm text-gray-500">Enter your email</p>
+
+                        {errorMessage && <p className="text-center my-1 text-xs font-medium text-red-600">{errorMessage}</p>}
+                        {successMessage && <p className="text-center my-1 text-xs font-medium text-green-600">{successMessage}</p>}
                     </div>
 
-                    <form className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleRegister}>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email address</label>
                             <input
                                 type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                                 placeholder="you@example.com"
@@ -49,10 +84,12 @@ const RegisterPage = () => {
                         </p>
 
                         <button
+                            disabled={loading}
                             type="submit"
-                            className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition"
+                            className="w-full py-2 flex justify-center items-center gap-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition disabled:opacity-50"
                         >
                             Continue
+                            {loading && <Loader className="animate-spin" size={20} color="white" />}
                         </button>
                     </form>
 
