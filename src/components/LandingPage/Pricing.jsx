@@ -70,36 +70,57 @@ const Pricing = () => {
                 </p>
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 text-left">
-                    {pricings.map(({ title, description, price, button, features }, idx) => (
-                        <div
-                            onClick={() => setSelectedPrice(idx)}
-                            key={idx}
-                            className={`flex flex-col gap-5 cursor-pointer border ${idx === selectedPrice ? 'border-indigo-600 border-2' : 'border-gray-200'} rounded-xl p-6 shadow hover:shadow-xl transition`}
-                        >
-                            <div className="flex flex-col gap-2">
-                                <h3 className="text-xl font-semibold">{title}</h3>
-                                <p className="text-sm text-gray-500">{description}</p>
+                    {pricings.map(({ title, description, price, button, features }, idx) => {
+                        const isSelected = idx === selectedPrice;
+                        return (
+                            <div
+                                key={idx}
+                                role="button"
+                                aria-pressed={isSelected}
+                                tabIndex={0}
+                                onClick={() => setSelectedPrice(idx)}
+                                onKeyDown={(e) => e.key === "Enter" && setSelectedPrice(idx)}
+                                className={`flex flex-col gap-5 cursor-pointer rounded-xl p-6 shadow hover:shadow-xl transition-all duration-300 border ${
+                                    isSelected ? "border-indigo-600 border-2" : "border-gray-200"
+                                } focus:outline-none focus:ring-2 focus:ring-indigo-500`}
+                            >
+                                {/* Title & Description */}
+                                <div className="flex flex-col gap-2">
+                                    <h3 className="text-lg md:text-xl font-semibold">{title}</h3>
+                                    <p className="text-sm text-gray-500">{description}</p>
+                                </div>
+
+                                {/* Price */}
+                                <div className="text-3xl md:text-4xl font-bold">
+                                    ${price}
+                                    <span className="text-base font-normal text-gray-500">/month per user</span>
+                                </div>
+
+                                {/* Action Button */}
+                                <button
+                                    type="button"
+                                    className={`w-full py-2 rounded-md font-medium cursor-pointer transition ${
+                                        isSelected
+                                            ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                                            : "border text-indigo-700 border-indigo-500 bg-indigo-100 hover:opacity-85"
+                                    }`}
+                                >
+                                    {button}
+                                </button>
+
+                                {/* What's Included */}
+                                <p className="font-medium mt-2">WHAT'S INCLUDED</p>
+                                <ul className="flex flex-col gap-2">
+                                    {features.map((feat, i) => (
+                                        <li key={i} className="flex items-start gap-3 text-gray-700">
+                                            <CheckCircle2Icon size={20} className="fill-green-400 text-white flex-shrink-0" />
+                                            <span className="text-base break-words">{feat}</span>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-
-                            <div className="text-4xl font-bold">
-                                ${price}
-                                <span className="text-base font-normal text-gray-500">/month per user</span>
-                            </div>
-
-                            <button className={`w-full ${idx === selectedPrice ? 'bg-indigo-600 hover:bg-indigo-700 text-white hover:opacity-90' : 'border text-indigo-700 border-indigo-500 bg-indigo-100 hover:opacity-85'} py-2 rounded-md font-medium cursor-pointer`}>
-                                {button}
-                            </button>
-
-                            <p className="font-medium">WHAT'S INCLUDED</p>
-                            <ul className="flex flex-col gap-2">
-                                {features.map((feat, i) => (
-                                    <li key={i} className="text-gray-700 text-sm flex gap-3">
-                                        <CheckCircle2Icon className="fill-green-400 text-white" /> {feat}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>

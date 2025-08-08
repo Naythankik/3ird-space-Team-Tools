@@ -20,7 +20,7 @@ const Header = () => {
                 </Link>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:block w-2/5">
+                <nav className="hidden lg:block min-w-2/5 max-w-full">
                     <ul className="flex justify-between text-base font-medium text-gray-700">
                         <li><a href="/#features" className="hover:text-indigo-600">Features</a></li>
                         <li><a href="/#how-it-works" className="hover:text-indigo-600">How It Works</a></li>
@@ -30,7 +30,7 @@ const Header = () => {
                 </nav>
 
                 {/* Auth Buttons */}
-                <div className="hidden md:flex gap-7 items-center">
+                <div className="hidden lg:flex gap-7 items-center">
                     <Link to="/login" className="text-sm font-medium text-gray-600 hover:text-indigo-600">Log in</Link>
                     <Link
                         to="/register"
@@ -41,7 +41,7 @@ const Header = () => {
                 </div>
 
                 {/* Mobile Menu Icon */}
-                <div className="md:hidden flex items-center">
+                <div className="lg:hidden flex items-center">
                     <button onClick={toggleMenu}>
                         {menuOpen ? <XIcon /> : <MenuIcon />}
                     </button>
