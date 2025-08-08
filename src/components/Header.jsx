@@ -50,7 +50,7 @@ const Header = () => {
 
             {/* Mobile Dropdown */}
             {menuOpen && (
-                <div className="md:hidden bg-white shadow-md px-6 pt-4 pb-6 space-y-4">
+                <div className="lg:hidden bg-white shadow-md px-6 pt-4 pb-6 space-y-4">
                     <nav>
                         <ul className="flex flex-col gap-3 text-base font-medium text-gray-700">
                             <li><a href="/#features" className="hover:text-indigo-600">Features</a></li>
@@ -59,7 +59,7 @@ const Header = () => {
                             <li><a href="/#testimonials" className="hover:text-indigo-600">Testimonials</a></li>
                         </ul>
                     </nav>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col items-start gap-3">
                         <Link to="/login" className="text-sm font-medium text-gray-600 hover:text-indigo-600">Log in</Link>
                         <Link
                             to="/register"
