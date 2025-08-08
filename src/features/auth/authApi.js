@@ -18,9 +18,18 @@ class AuthApi {
         }
     };
 
-    registerUser = async (data) => {
+    registerEmail = async (email) => {
         try {
-            const res = await axios.post("/auth/register", data);
+            const res = await axios.post("/auth/register/initialPhase", {email});
+            return res.data;
+        } catch (error) {
+            throw handleAxiosError(error);
+        }
+    };
+
+    completeRegistration = async (token, body) => {
+        try {
+            const res = await axios.post(`/auth/register/finalPhase/${token}`, body);
             return res.data;
         } catch (error) {
             throw handleAxiosError(error);
@@ -75,9 +84,12 @@ class AuthApi {
         }
     };
 
-    verifyEmail = async (token) => {
+    verifyEmail = async (code, email) => {
         try {
-            const res = await axios.post("/auth/verify-email", { token });
+            const res = await axios.post(
+                "/auth/register/verify-email",
+                { code, email }
+            );
             return res.data;
         } catch (error) {
             throw handleAxiosError(error);

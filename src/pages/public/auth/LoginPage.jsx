@@ -28,7 +28,7 @@ const LoginPage = () => {
         <main className="bg-gray-100 flex flex-col justify-between items-center min-h-screen">
             <Header />
 
-            <div className="my-12 md:my-8 w-full max-w-md border border-gray-200 rounded-2xl shadow-lg p-8 space-y-6">
+            <section className="my-12 md:my-8 w-full max-w-md border border-gray-200 rounded-2xl shadow-lg p-8 space-y-6">
                 <div className="text-center">
                     <h1 className="text-3xl font-bold text-gray-800">Welcome Back</h1>
                     <p className="text-gray-500 text-sm">Sign in to your account</p>
@@ -83,7 +83,7 @@ const LoginPage = () => {
                 <p className="text-center text-sm text-gray-500">
                     Don't have an account? <Link to="/register" className="text-indigo-600 hover:underline">Sign up</Link>
                 </p>
-            </div>
+            </section>
 
             <Footer />
         </main>

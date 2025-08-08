@@ -3,7 +3,7 @@ import PrivateRoute from "./routes/PrivateRoute.jsx";
 import LandingPage from "./pages/public/LandingPage.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import LoginPage from "./pages/public/auth/LoginPage.jsx";
-import RegisterPage from "./pages/public/auth/RegisterPage.jsx";
+import RegisterPage from "./pages/public/auth/Register/RegisterPage.jsx";
 import ForgotPasswordPage from "./pages/public/auth/ForgotPasswordPage.jsx";
 import AboutPage from "./pages/public/AboutPage.jsx";
 import FeaturesPage from "./pages/public/FeaturesPage.jsx";
@@ -14,6 +14,8 @@ import Dashboard from "./pages/private/Dashboard.jsx";
 import GuestRoute from "./routes/GuestRoute.jsx";
 import Task from "./pages/private/Task.jsx";
 import ResetPasswordPage from "./pages/public/auth/ResetPasswordPage.jsx";
+import VerifyCodePage from "./pages/public/auth/Register/VerifyCodePage.jsx";
+import CompleteRegisterPage from "./pages/public/auth/Register/CompleteRegisterPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <RegisterPage />
+            },
+            {
+                path: '/register/verify/:token',
+                element: <VerifyCodePage />
+            },
+            {
+                path: '/register/complete/:token',
+                element: <CompleteRegisterPage />
             },
             {
                 path: '/forgot-password',

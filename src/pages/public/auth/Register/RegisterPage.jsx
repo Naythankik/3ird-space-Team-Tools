@@ -1,13 +1,15 @@
-import Header from "../../../components/Header.jsx";
-import Footer from "../../../components/Footer.jsx";
+import Header from "../../../../components/Header.jsx";
+import Footer from "../../../../components/Footer.jsx";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft, FaApple, FaSlack } from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Loader} from "lucide-react";
-import authApi from "../../../features/auth/authApi.js";
+import authApi from "../../../../features/auth/authApi.js";
+import randomString from "../../../../utils/randomString.js";
 
 const RegisterPage = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [successMessage, setSuccessMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
@@ -18,19 +20,30 @@ const RegisterPage = () => {
         setErrorMessage(null)
         setSuccessMessage(null)
         setLoading(true)
+        let token = localStorage.getItem('verifyToken')
 
         try{
             const response = await authApi.registerEmail(email)
             setSuccessMessage(response.message)
 
+            const newToken = randomString(32)
+            localStorage.setItem('verifyToken', newToken )
+
             setTimeout(() => {
-                console.log('redirect to token page')
+                navigate(`/register/verify/${newToken}`, { state: { email }})
             }, 2000)
+
         }catch(err){
-            if(err.includes("Token has already been sent")){
-                console.log('show the page for token')
+            const errorText = err?.response?.data?.message || err.message || String(err);
+
+            if(errorText.includes("Token has already been sent")){
+                if(!token){
+                    token = randomString(24)
+                    localStorage.setItem('verifyToken', token)
+                }
+                navigate(`/register/verify/${token}`, { state: { email }})
             }
-            setErrorMessage(err)
+            setErrorMessage(errorText)
         }finally {
             setLoading(false)
         }
@@ -53,6 +66,7 @@ const RegisterPage = () => {
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email address</label>
                             <input
+                                disabled={loading}
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -86,7 +100,7 @@ const RegisterPage = () => {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full py-2 flex justify-center items-center gap-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition disabled:opacity-50"
+                            className="w-full cursor-pointer py-2 flex justify-center items-center gap-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition disabled:opacity-50"
                         >
                             Continue
                             {loading && <Loader className="animate-spin" size={20} color="white" />}
