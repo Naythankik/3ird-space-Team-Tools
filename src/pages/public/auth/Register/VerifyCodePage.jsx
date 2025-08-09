@@ -5,6 +5,7 @@ import { useState } from "react";
 import authApi from "../../../../features/auth/authApi.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {BiError} from "react-icons/bi";
+import {Loader} from "lucide-react";
 
 const VerifyCodePage = () => {
     const [loading, setLoading] = useState(false);
@@ -64,6 +65,8 @@ const VerifyCodePage = () => {
     const handleCodeRequest = async (e) => {
         e.preventDefault();
         setLoading(true)
+        setErrorMessage(null)
+
         try{
             const res = await authApi.resendVerification(location.state?.email)
             setSuccessMessage(res.message)
@@ -82,12 +85,9 @@ const VerifyCodePage = () => {
         try {
             const { data, message } = await authApi.verifyEmail(code, email)
             setSuccessMessage(`${message}, Redirecting to complete registration page...`)
+
             localStorage.removeItem('verifyToken')
-
-            setTimeout(() => {
-
-                navigate(`/register/complete/${data.token}`, { state: {email: data.user.email}})
-            }, 3000)
+            navigate(`/register/complete/${data.token}`, { state: {email: data.user.email}})
         } catch (error) {
             if(Array.isArray(error)){
                 error.forEach(e => {
@@ -140,11 +140,14 @@ const VerifyCodePage = () => {
                                 className="w-12 h-14 border border-gray-300 rounded text-center text-xl font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             />
                         ))}
+
                     </form>
+                    {loading && <p className="flex gap-1 items-center text-gray-600 font-normal text-sm"><Loader size="16" className="animate-spin" />checking your code</p>}
+
                     {errorMessage &&
-                        <p className="bg-red-100 w-[96%] flex items-center text-gray-700 justify-center gap-2 py-2 text-sm rounded-md">
+                        <p className="bg-red-100 w-[96%] flex items-center text-gray-700 justify-center gap-2 p-2 text-sm rounded-md">
                             <BiError className="fill-pink-700 font-medium" size="22" />
-                            <span>{errorMessage}</span>
+                            <span className="text-center">{errorMessage}</span>
                         </p>
                     }
                 </div>

@@ -17,7 +17,7 @@ const LoginPage = () => {
         try {
             const response = await login(form);
             setLoading(!response)
-            navigate('/dashboard')
+            if(response) navigate('/dashboard')
         }catch (err){
             setError(err)
         }finally {

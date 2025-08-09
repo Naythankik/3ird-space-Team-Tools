@@ -16,6 +16,7 @@ import Task from "./pages/private/Task.jsx";
 import ResetPasswordPage from "./pages/public/auth/ResetPasswordPage.jsx";
 import VerifyCodePage from "./pages/public/auth/Register/VerifyCodePage.jsx";
 import CompleteRegisterPage from "./pages/public/auth/Register/CompleteRegisterPage.jsx";
+import Setting from "./pages/private/Setting.jsx";
 
 const router = createBrowserRouter([
     {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
             {
                 path: "/tasks",
                 element: <Task />,
+            },
+            {
+                path: "/settings",
+                element: <Setting />,
             },
         ],
         errorElement: <ErrorPage />

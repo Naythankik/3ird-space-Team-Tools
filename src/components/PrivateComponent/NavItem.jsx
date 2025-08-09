@@ -9,12 +9,12 @@ const NavItem = ({ Icon, label, path }) => {
         <Link
             to={path}
             title={label}
-            className={`flex items-center justify-center md:justify-start gap-3 text-gray-700 hover:text-indigo-600 cursor-pointer transition ${
-                isActive ? "text-indigo-600 font-semibold" : ""
-            }`}
+            className={`flex flex-col items-center gap-1 text-gray-700 cursor-pointer transition`}
         >
-            {Icon && <Icon className="h-10 md:h-8 w-10 md:w-8" />}
-            <span className="hidden md:inline-block text-lg font-medium">{label}</span>
+            {Icon && <div className={`${isActive ? "bg-indigo-200" : ""} hover:bg-indigo-200 p-2 rounded-lg`}>
+                <Icon className="h-6 w-6" />
+            </div>}
+            <span className="inline-flex text-xs font-medium">{label}</span>
         </Link>
     );
 };
