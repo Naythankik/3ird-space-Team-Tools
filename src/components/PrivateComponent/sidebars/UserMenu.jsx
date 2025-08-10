@@ -1,25 +1,30 @@
 import { Link } from "react-router-dom";
 import { PlaneTakeoffIcon, LogOutIcon } from "lucide-react";
-import {useAuth} from "../../../context/AuthContext.jsx";
-
-const USER_OPTIONS = {
-    profile: [
-        { label: "Profile", path: "/profile" },
-        { label: "Preferences", path: "/preferences" },
-    ],
-    downloads: [{ label: "Downloads", path: "/downloads" }],
-    account: [
-        { label: "Upgrade Plan", path: "/upgrade", icon: PlaneTakeoffIcon },
-        { label: "Logout", icon: LogOutIcon },
-    ],
-};
+import { useAuth } from "../../../context/AuthContext.jsx";
 
 const UserMenu = () => {
     const { user, logout } = useAuth();
 
+    const USER_OPTIONS = {
+        status :[
+            { label: "Set yourself as away", event: "/away" },
+            { label: "Pause notifications", path: "/pause" },
+        ],
+        profile: [
+            { label: "Profile", path: "/profile" },
+            { label: "Preferences", path: "/preferences" },
+        ],
+        downloads: [{ label: "Downloads", path: "/downloads" }],
+        account: [
+            { label: "Upgrade Plan", path: "/upgrade", icon: PlaneTakeoffIcon },
+            { label: "Logout", icon: LogOutIcon, event: logout },
+        ],
+    };
+
     return (
-        <div id="userOptions" className="hidden rounded-lg bg-indigo-300 text-black/60 space-y-2 w-60 absolute bottom-2 left-14 shadow-lg">
-            {/* User Info */}
+        <div
+            id="userOptions"
+            className="hidden bg-blend-overlay rounded-lg border border-gray-300 bg-indigo-300 text-black/60 space-y-2 w-64 absolute bottom-2 left-16.5 shadow-lg">
             <div className="flex items-start p-4 pb-0 gap-2">
                 <img
                     src={user?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
@@ -38,7 +43,7 @@ const UserMenu = () => {
             {/* Menu Sections */}
             {Object.entries(USER_OPTIONS).map(([section, items]) => (
                 <div key={section} className="border-t border-gray-200 pt-2">
-                    {items.map(({ label, path, icon: Icon }, id) => (
+                    {items.map(({ label, path, icon: Icon, event }, id) => (
                         <div key={id}>{path ?
                             <Link
                                 to={path}
@@ -49,7 +54,7 @@ const UserMenu = () => {
                             </Link> :
                             <button
                                 type="button"
-                                onClick={label === "Logout" ? logout : undefined}
+                                onClick={label === "Logout" ? event : undefined}
                                 className="flex items-center gap-2 px-4 py-1 hover:bg-indigo-600 hover:text-white capitalize font-medium w-full cursor-pointer"
                             >
                                 {Icon && <Icon className="h-5 w-5" />}

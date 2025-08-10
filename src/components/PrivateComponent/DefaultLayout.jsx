@@ -3,7 +3,7 @@ import {Outlet} from "react-router-dom";
 
 const defaultLayout = () => {
     return (
-        <div className="flex">
+        <div className="flex relative">
             <Sidebar />
             <main className="flex-1 p-8 bg-gray-50 min-h-screen">
                 <Outlet />
