@@ -4,7 +4,7 @@ import { useAuth } from "../../../context/AuthContext.jsx";
 import TaskMenu from "./TaskMenu.jsx";
 import {useEffect, useState} from "react";
 
-const SidebarActions = () => {
+const SidebarActions = ({toggleProfile}) => {
     const { user } = useAuth();
     const modals = ["userOptions", "taskOptions"];
     const [taskIcon, setTaskIcon] = useState(false)
@@ -27,7 +27,6 @@ const SidebarActions = () => {
             modals.forEach((id) => {
                 const el = document.getElementById(id);
                 el?.classList.add("hidden");
-                console.log(id, el.classList.contains('hidden'), taskIcon)
                 if(el.classList.contains('hidden') && id === 'taskOptions' && taskIcon === true){
                     setTaskIcon(false)
                 }
@@ -88,7 +87,7 @@ const SidebarActions = () => {
             </button>
 
             <TaskMenu />
-            <UserMenu />
+            <UserMenu toggleProfile={toggleProfile} />
         </div>
     );
 };

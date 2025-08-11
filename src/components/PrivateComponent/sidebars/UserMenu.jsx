@@ -2,16 +2,19 @@ import { Link } from "react-router-dom";
 import { PlaneTakeoffIcon, LogOutIcon } from "lucide-react";
 import { useAuth } from "../../../context/AuthContext.jsx";
 
-const UserMenu = () => {
+const UserMenu = ({toggleProfile}) => {
     const { user, logout } = useAuth();
 
     const USER_OPTIONS = {
         status :[
-            { label: "Set yourself as away", event: "/away" },
+            { label: "Set yourself as away", event: () => console.log("Set yourself as away") },
             { label: "Pause notifications", path: "/pause" },
         ],
         profile: [
-            { label: "Profile", path: "/profile" },
+            { label: "Profile", event: () => {
+                    toggleProfile( true )
+                    document.getElementById("userOptions").classList.toggle("hidden")
+                } },
             { label: "Preferences", path: "/preferences" },
         ],
         downloads: [{ label: "Downloads", path: "/downloads" }],
@@ -54,7 +57,7 @@ const UserMenu = () => {
                             </Link> :
                             <button
                                 type="button"
-                                onClick={label === "Logout" ? event : undefined}
+                                onClick={event}
                                 className="flex items-center gap-2 px-4 py-1 hover:bg-indigo-600 hover:text-white capitalize font-medium w-full cursor-pointer"
                             >
                                 {Icon && <Icon className="h-5 w-5" />}

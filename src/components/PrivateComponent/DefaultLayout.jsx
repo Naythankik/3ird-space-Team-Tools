@@ -1,15 +1,36 @@
 import Sidebar from "./SideBar.jsx";
-import {Outlet} from "react-router-dom";
+import { Outlet} from "react-router-dom";
+import {useState} from "react";
+import ProfileArticle from "./sidebars/profile/ProfileArticle.jsx";
+import {useAuth} from "../../context/AuthContext.jsx";
+import ProfileModal from "./sidebars/profile/ProfileModal.jsx";
+import RemovePictureModal from "./sidebars/profile/RemovePictureModal.jsx";
 
-const defaultLayout = () => {
+const DefaultLayout = () => {
+    const { user } = useAuth();
+
+    const [showProfileArticle, setShowProfileArticle] = useState(false);
+    const [showProfileModal, setShowProfileModal] = useState(false);
+    const [removePictureModal, setRemovePictureModal] = useState(false);
+
     return (
         <div className="flex relative">
-            <Sidebar />
-            <main className="flex-1 p-8 bg-gray-50 min-h-screen">
-                <Outlet />
+            <Sidebar toggleProfile={setShowProfileArticle} />
+            <main className="flex-1 flex bg-gray-50 min-h-screen divide-x divide-gray-400">
+                <div
+                    className={`p-5 flex-1 flex flex-col 
+                        ${showProfileArticle ? "hidden md:flex" : "flex"}`}
+                >
+                    <Outlet />
+                </div>
+                {showProfileArticle && (<ProfileArticle closeProfileArticle={setShowProfileArticle} profileModal={setShowProfileModal} />)}
             </main>
+            {showProfileModal && <ProfileModal user={user} closeProfileModal={setShowProfileModal} removePictureModal={setRemovePictureModal} /> }
+            {removePictureModal &&
+                <RemovePictureModal user={user} showProfileModal={setShowProfileModal} showPictureModal={setRemovePictureModal} />
+            }
         </div>
     )
 }
 
-export default defaultLayout;
+export default DefaultLayout;
