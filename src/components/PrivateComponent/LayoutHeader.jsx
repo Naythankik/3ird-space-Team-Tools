@@ -1,5 +1,4 @@
 import {BellIcon} from "lucide-react";
-import ProfilePicture from "./ProfilePicture.jsx";
 
 const LayoutHeader = ({title, hasSearchBar}) => {
     return (
@@ -12,7 +11,6 @@ const LayoutHeader = ({title, hasSearchBar}) => {
                     className="border rounded-lg px-4 py-2"
                 />}
                 <BellIcon className="h-6 w-6 text-gray-500 cursor-pointer" />
-                <ProfilePicture  />
             </div>
         </header>
     )

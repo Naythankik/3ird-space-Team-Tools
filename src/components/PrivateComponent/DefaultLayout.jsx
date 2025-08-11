@@ -18,7 +18,7 @@ const DefaultLayout = () => {
             <Sidebar toggleProfile={setShowProfileArticle} />
             <main className="flex-1 flex bg-gray-50 min-h-screen divide-x divide-gray-400">
                 <div
-                    className={`p-5 flex-1 flex flex-col 
+                    className={`flex-1 flex flex-col 
                         ${showProfileArticle ? "hidden md:flex" : "flex"}`}
                 >
                     <Outlet />
