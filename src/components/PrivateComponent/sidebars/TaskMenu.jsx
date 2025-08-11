@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaFile, FaHashtag, FaHeadphones, FaTextHeight, FaUserPlus } from "react-icons/fa";
-import { FaPadlet } from "react-icons/fa6";
+import {FaBook, FaFile, FaHashtag, FaHeadphones, FaTextHeight, FaUserPlus} from "react-icons/fa";
 
 const TaskMenu = () => {
     const TASK_OPTIONS = [
@@ -27,7 +26,7 @@ const TaskMenu = () => {
         {
             title: "List",
             desc: "Track and manage projects",
-            icon: { type: FaPadlet, color: "bg-yellow-500 text-white" }
+            icon: { type: FaBook, color: "bg-yellow-500 text-white" }
         }
     ];
 

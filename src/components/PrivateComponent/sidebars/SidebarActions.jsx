@@ -25,8 +25,14 @@ const SidebarActions = () => {
     useEffect(() => {
         const closeAllModals = () => {
             modals.forEach((id) => {
-                document.getElementById(id)?.classList.add("hidden");
+                const el = document.getElementById(id);
+                el?.classList.add("hidden");
+                console.log(id, el.classList.contains('hidden'), taskIcon)
+                if(el.classList.contains('hidden') && id === 'taskOptions' && taskIcon === true){
+                    setTaskIcon(false)
+                }
             });
+
         };
 
         const handleClickOutside = (e) => {
@@ -58,11 +64,15 @@ const SidebarActions = () => {
                     toggleModal("taskOptions")
                     setTaskIcon(!taskIcon)
                 }}
-                className="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-700 transition focus:outline-none"
+                className="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center hover:bg-indigo-700 focus:outline-none"
             >
-                <PlusIcon className="w-5 h-5 text-white" />
-                {/*{taskIcon ?  : <XIcon className="w-5 h-5 text-white" />}*/}
+                <PlusIcon
+                    className={`w-5 h-5 text-white transform transition-transform duration-300 ease-in-out ${
+                        taskIcon ? "rotate-45" : "rotate-0"
+                    }`}
+                />
             </button>
+
 
             <button
                 id="userButton"
