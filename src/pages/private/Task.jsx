@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import LayoutHeader from "../../components/PrivateComponent/LayoutHeader.jsx";
 
 const dummyTasks = [
     {
@@ -35,7 +34,6 @@ const TasksPage = () => {
     return (
         <>
             <div className="flex flex-row-reverse md:flex-col justify-between md:mb-6 items-stretch">
-                <LayoutHeader title="Tasks" hasSearchBar={false} />
 
                 <button className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 w-fit rounded hover:bg-indigo-700 transition">
                     <FaPlus /> Add Task

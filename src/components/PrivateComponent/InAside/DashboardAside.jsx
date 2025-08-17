@@ -1,18 +1,28 @@
-import { FaHashtag, FaRegCommentDots } from "react-icons/fa";
+import { FaRegCommentDots } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiHeadphoneLine } from "react-icons/ri";
+import React, {useState} from "react";
+import CollapsibleChannel from "../CollapsibleChannel.jsx";
 
 const DashboardAside = () => {
     const directMessages = [
-        { name: "abdulmalik", avatar: "https://i.pravatar.cc/150?img=1" },
-        { name: "Bolaji Ajani", avatar: "https://i.pravatar.cc/150?img=2" },
-        { name: "Habib Wahab", avatar: "https://i.pravatar.cc/150?img=3" },
-        { name: "Nathaniel Abolarin (you)", avatar: "https://i.pravatar.cc/150?img=4" },
+        { id: 1, name: 'Sarah Lee', avatar: 'https://placehold.co/100x100/ec4899/ffffff?text=SL', status: 'online' },
+        { id: 2, name: 'David Chen', avatar: 'https://placehold.co/100x100/f59e0b/ffffff?text=DC', status: 'offline' },
+        { id: 3, name: 'Maria Garcia', avatar: 'https://placehold.co/100x100/10b981/ffffff?text=MG', status: 'away' },
     ];
+
+    const channels = [
+        { id: 1, name: 'general', unread: 2 },
+        { id: 2, name: 'design-team', unread: 0 },
+        { id: 3, name: 'engineering', unread: 5 },
+        { id: 4, name: 'project-comet', unread: 0 },
+        { id: 5, name: 'marketing', unread: 1 },
+    ];
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
         <aside className="w-64 bg-indigo-600 text-white flex flex-col">
-            {/* Upgrade Button */}
             <div className="p-3">
                 <button className="w-full bg-gray-500 hover:bg-gray-400 text-sm font-semibold px-3 py-2 rounded-md">
                     🚀 Upgrade Plan
@@ -32,27 +42,18 @@ const DashboardAside = () => {
                 </div>
             </nav>
 
-            {/* Channels */}
-            <div className="mt-4 px-3 text-xs font-bold uppercase text-gray-400">Channels</div>
-            <div className="px-3">
-                <div className="flex items-center gap-2 cursor-pointer hover:bg-indigo-400 p-2 rounded">
-                    <FaHashtag /> dont-post-here
+            <aside
+                className={`text-white w-64 flex-shrink-0 flex flex-col transition-transform duration-300 ease-in-out 
+                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:relative absolute inset-y-0 left-0 z-20`}
+            >
+                <div className="flex-grow p-4 overflow-y-auto">
+                    <nav className="space-y-6">
+                        <CollapsibleChannel title="Channels" children={channels} />
+                        <CollapsibleChannel title="Direct Messages" children={directMessages} />
+                    </nav>
                 </div>
-            </div>
+            </aside>
 
-            {/* Direct Messages */}
-            <div className="mt-4 px-3 text-xs font-bold uppercase text-gray-400">Direct messages</div>
-            <div className="flex-1 overflow-y-auto px-3">
-                {directMessages.map((dm, idx) => (
-                    <div
-                        key={idx}
-                        className="flex items-center gap-2 cursor-pointer hover:bg-indigo-400 p-2 rounded"
-                    >
-                        <img src={dm.avatar} alt={dm.name} className="w-6 h-6 rounded-full" />
-                        <span className="truncate">{dm.name}</span>
-                    </div>
-                ))}
-            </div>
 
         </aside>
     );
