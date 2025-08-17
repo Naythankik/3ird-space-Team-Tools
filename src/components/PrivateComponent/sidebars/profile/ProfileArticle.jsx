@@ -1,5 +1,5 @@
 import {FaEllipsisVertical, FaX} from "react-icons/fa6";
-import {FaClock, FaEnvelope, FaPlus} from "react-icons/fa";
+import {FaClock, FaEnvelope, FaPhone, FaPlus} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../../../context/AuthContext.jsx";
 import {useEffect, useState} from "react";
@@ -31,7 +31,7 @@ const ProfileArticle = ({closeProfileArticle, profileModal}) => {
                 </div>
                 <div className="flex justify-center">
                     <img
-                        src={user?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
+                        src={user?.avatar}
                         alt="user"
                         className="h-44 w-44 rounded-md"
                     />
@@ -82,10 +82,23 @@ const ProfileArticle = ({closeProfileArticle, profileModal}) => {
                             </Link>
                         </div>
                     </div>
-                    <button className="text-indigo-500 text-sm flex gap-1 items-center">
-                        <FaPlus />
-                        <span>Add Phone</span>
-                    </button>
+                    {user.telephone ?
+                        <div className="flex gap-3 items-center">
+                            <FaPhone size={25} />
+                            <div>
+                                <p className="text-sm">Telephone</p>
+                                <Link target="_blank"
+                                      to={`tel:${user.telephone}`}
+                                      className="text-indigo-500 hover:underline text-sm">
+                                    {user.telephone}
+                                </Link>
+                            </div>
+                        </div> :
+                        <button className="text-indigo-500 text-sm flex gap-1 items-center">
+                            <FaPlus/>
+                            <span>Add Phone</span>
+                        </button>
+                    }
                 </div>
             </div>
 

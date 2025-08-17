@@ -47,8 +47,8 @@ const RemovePictureModal = ({ user, showProfileModal, showPictureModal }) => {
                 {/* Body */}
                 <div className="flex flex-col items-center gap-2">
                     <img
-                        src={user?.image || "https://randomuser.me/api/portraits/men/1.jpg"}
-                        alt={user?.name ? `${user.name}'s profile` : "Default profile avatar"}
+                        src={user?.avatar}
+                        alt={user?.fullName ? `${user.fullName}'s profile` : "Default profile avatar"}
                         className="block w-2/5 rounded-xl"
                     />
                     <p className="w-2/3 text-center text-gray-500 text-sm leading-4">

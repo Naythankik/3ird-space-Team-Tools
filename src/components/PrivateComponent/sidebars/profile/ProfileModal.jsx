@@ -2,7 +2,7 @@ import {FaX} from "react-icons/fa6";
 import {useState} from "react";
 
 const ProfileModal = ({user, closeProfileModal, removePictureModal}) => {
-    const [profilePhoto, setProfilePhoto] = useState(user?.image || "https://randomuser.me/api/portraits/men/1.jpg");
+    const [profilePhoto, setProfilePhoto] = useState(user?.avatar);
 
     const [formData, setFormData] = useState({
         fullName: user?.fullName || "",
