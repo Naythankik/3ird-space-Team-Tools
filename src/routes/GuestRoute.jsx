@@ -7,7 +7,7 @@ const GuestRoute = () => {
 
     if (authLoading) return <Loader />;
 
-    return !isAuthenticated ? <Outlet /> : <Navigate to="/dashboard" replace />;
+    return !isAuthenticated ? <Outlet /> : <Navigate to="/welcome" replace />;
 };
 
 export default GuestRoute;

@@ -17,6 +17,7 @@ import ResetPasswordPage from "./pages/public/auth/ResetPasswordPage.jsx";
 import VerifyCodePage from "./pages/public/auth/Register/VerifyCodePage.jsx";
 import CompleteRegisterPage from "./pages/public/auth/Register/CompleteRegisterPage.jsx";
 import Setting from "./pages/private/Setting.jsx";
+import WelcomePage from "./pages/private/WelcomePage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -75,23 +76,32 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
     },
     {
+        path: "/welcome",
+        element: <WelcomePage />
+    },
+    {
         element: <PrivateRoute />,
+        errorElement: <ErrorPage />,
         children: [
             {
-                path: "/dashboard",
-                element: <Dashboard />,
-            },
-            {
-                path: "/tasks",
-                element: <Task />,
-            },
-            {
-                path: "/settings",
-                element: <Setting />,
-            },
-        ],
-        errorElement: <ErrorPage />
-    },
+                path: '/:workspace',
+                children: [
+                    {
+                        path: "dashboard",
+                        element: <Dashboard />,
+                    },
+                    {
+                        path: "tasks",
+                        element: <Task />,
+                    },
+                    {
+                        path: "settings",
+                        element: <Setting />,
+                    },
+                ]
+            }
+        ]
+    }
 ]);
 
 const App = () => {
