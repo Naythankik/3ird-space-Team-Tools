@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 const NavItem = ({ Icon, label, path }) => {
     const { pathname } = useLocation();
 
-    const isActive = pathname === path || pathname.startsWith(path + "/");
+    const isActive = pathname.includes(path);
 
     return (
         <Link

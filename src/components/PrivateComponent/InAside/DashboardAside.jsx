@@ -3,22 +3,9 @@ import { HiOutlineMail } from "react-icons/hi";
 import { RiHeadphoneLine } from "react-icons/ri";
 import React, {useState} from "react";
 import CollapsibleChannel from "../CollapsibleChannel.jsx";
+import CollapsibleDMs from "../CollapsibleDMs.jsx";
 
-const DashboardAside = () => {
-    const directMessages = [
-        { id: 1, name: 'Sarah Lee', avatar: 'https://placehold.co/100x100/ec4899/ffffff?text=SL', status: 'online' },
-        { id: 2, name: 'David Chen', avatar: 'https://placehold.co/100x100/f59e0b/ffffff?text=DC', status: 'offline' },
-        { id: 3, name: 'Maria Garcia', avatar: 'https://placehold.co/100x100/10b981/ffffff?text=MG', status: 'away' },
-    ];
-
-    const channels = [
-        { id: 1, name: 'general', unread: 2 },
-        { id: 2, name: 'design-team', unread: 0 },
-        { id: 3, name: 'engineering', unread: 5 },
-        { id: 4, name: 'project-comet', unread: 0 },
-        { id: 5, name: 'marketing', unread: 1 },
-    ];
-
+const DashboardAside = ({channels, directMessages, readChannel, activeChannel}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -48,8 +35,8 @@ const DashboardAside = () => {
             >
                 <div className="flex-grow p-4 overflow-y-auto">
                     <nav className="space-y-6">
-                        <CollapsibleChannel title="Channels" children={channels} />
-                        <CollapsibleChannel title="Direct Messages" children={directMessages} />
+                        <CollapsibleChannel title="Channels" children={channels} readChannel={readChannel} activeChannel={activeChannel} />
+                        <CollapsibleDMs children={directMessages} />
                     </nav>
                 </div>
             </aside>
