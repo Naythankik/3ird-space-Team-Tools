@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
 
         setAccessToken(null);
         setUser(null);
+        localStorage.removeItem('workspaces')
         clearStorage();
     };
 

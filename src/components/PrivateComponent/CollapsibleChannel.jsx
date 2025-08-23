@@ -21,7 +21,7 @@ const CollapsibleChannel = ({ children, readChannel, activeChannel }) => {
                         ${activeChannel === child.slug ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
                     >
                         <div className="flex items-center space-x-2">
-                            {child.isPrivate ?
+                            {child.channelType === 'private' ?
                                 <Lock size={16} /> : <Hash size={16} />
                             }
                             <span>{child.slug}</span>

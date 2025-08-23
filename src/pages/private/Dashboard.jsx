@@ -1,8 +1,10 @@
 import DashboardAside from "../../components/PrivateComponent/InAside/DashboardAside.jsx";
 import DashboardComponent from "../../components/PrivateComponent/DashboardComponent.jsx";
-import {useLocation} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import { WorkspaceApi } from "../../features/user/workspaceApi.js";
+import Loader from "../../components/Loader.jsx";
+import NoOpenComponent from "../../components/NoOpenComponent.jsx";
 
 const workspaceApi = new WorkspaceApi();
 
@@ -10,17 +12,16 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [channels, setChannels] = useState([]);
     const [directMessages, setDirectMessages] = useState([]);
-    const [channelDetails, setChannelDetails] = useState([]);
+    const [channelDetails, setChannelDetails] = useState(null);
     const [activeChannel, setActiveChannel] = useState(null);
 
-    const { pathname } = useLocation();
+    const { workspace } = useParams()
 
     const fetchWorkspace = async () => {
         setIsLoading(true)
-        const workspaceSlug = pathname.split('/')[1];
 
         try{
-            const { data } = await workspaceApi.dashboard(workspaceSlug)
+            const { data } = await workspaceApi.dashboard(workspace)
             setChannels(data.channels)
             setDirectMessages(data.DMs)
         }catch(err){
@@ -32,10 +33,9 @@ const Dashboard = () => {
 
     const fetchWorkspaceChannel = async (channel) => {
         setIsLoading(true)
-        const workspaceSlug = pathname.split('/')[1];
 
         try{
-            const { data } = await workspaceApi.readChannel(workspaceSlug, channel)
+            const { data } = await workspaceApi.readChannel(workspace, channel)
             setChannelDetails(data)
             setActiveChannel(channel)
         }catch(err){
@@ -47,13 +47,18 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchWorkspace()
-    }, [])
+    }, []);
 
+    if (isLoading) return <Loader title="Loading workspace..." />
 
     return (
         <div className="flex divide-x h-full">
             <DashboardAside channels={channels} directMessages={directMessages} readChannel={fetchWorkspaceChannel} activeChannel={activeChannel}/>
-            <DashboardComponent props={channelDetails} />
+
+            {channelDetails ?
+                <DashboardComponent channelDetails={channelDetails} />
+                : <NoOpenComponent />
+            }
         </div>
     );
 };

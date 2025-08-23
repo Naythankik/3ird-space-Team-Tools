@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "../../services/axios.js";
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { PiHandWavingFill} from "react-icons/pi";
 import {useAuth} from "../../context/AuthContext.jsx";
 
@@ -24,8 +24,7 @@ const WelcomePage = () => {
         }catch (e){
             console.log(e.message)
         }finally {
-            setTimeout(() => setIsLoading(false), 3000)
-        }
+            setIsLoading(false)        }
     }
 
     useEffect(() => {
@@ -76,9 +75,9 @@ const WelcomePage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <Link
-                                        to={`/${workspace?.slug}/dashboard`}
-                                        className="bg-indigo-500 hover:text-indigo-500 hover:bg-white border-2 border-indigo-500 text-white font-semibold p-2 rounded-sm cursor-pointer">LAUNCH SLACK</Link>
+                                    <a
+                                        href={`/${workspace?.slug}/dashboard`}
+                                        className="bg-indigo-500 hover:text-indigo-500 hover:bg-white border-2 border-indigo-500 text-white font-semibold p-2 rounded-sm cursor-pointer">LAUNCH SLACK</a>
                                 </article>)
                         }
                     </div>

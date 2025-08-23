@@ -17,7 +17,7 @@ const LoginPage = () => {
         try {
             const response = await login(form);
             setLoading(!response)
-            if(response) navigate('/jhdsvdvduyfduyfduy')
+            if(response) navigate('/welcome')
         }catch (err){
             setError(err)
         }finally {
