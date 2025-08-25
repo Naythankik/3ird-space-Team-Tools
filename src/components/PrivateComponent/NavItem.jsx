@@ -1,13 +1,12 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const NavItem = ({ Icon, label, path }) => {
     const { pathname } = useLocation();
 
     const isActive = pathname.includes(path);
-
     return (
-        <Link
-            to={path}
+        <a
+            href={path}
             title={label}
             className={`flex flex-col items-center gap-1 text-gray-700 cursor-pointer transition`}
         >
@@ -15,7 +14,7 @@ const NavItem = ({ Icon, label, path }) => {
                 <Icon className="h-6 w-6" />
             </div>}
             <span className="inline-flex text-xs font-medium">{label}</span>
-        </Link>
+        </a>
     );
 };
 

@@ -1,6 +1,7 @@
 import { CogIcon, HomeIcon } from "@heroicons/react/16/solid";
 import { BellIcon, CalendarIcon, ClipboardListIcon, UsersIcon } from "lucide-react";
 import NavItem from "../NavItem.jsx";
+import {useParams} from "react-router-dom";
 
 const NAV_LINKS = [
     { label: "Home", path: "/dashboard", icon: HomeIcon },
@@ -12,10 +13,12 @@ const NAV_LINKS = [
 ];
 
 const SidebarNav = () => {
+    const { workspace } = useParams();
+
     return (
             <nav className="space-y-3">
                 {NAV_LINKS.map(({ label, path, icon: Icon }) => (
-                    <NavItem key={label} Icon={Icon} label={label} path={path} />
+                    <NavItem key={label} Icon={Icon} label={label} path={`/${workspace}${path}`} />
                 ))}
             </nav>
     );
