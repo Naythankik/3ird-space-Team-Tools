@@ -32,8 +32,6 @@ const Dashboard = () => {
     }
 
     const fetchChannelChats = async (name) => {
-        setIsLoading(true);
-
         try{
             const { data } = await workspaceApi.readChannelChats(workspace, name);
             setDetails({
@@ -42,13 +40,10 @@ const Dashboard = () => {
             })
         }catch(err){
             console.log(err)
-        }finally {
-            setIsLoading(false)
         }
     }
 
     const fetchDMChats = async (id) => {
-        setIsLoading(true);
         try{
             const { data } = await workspaceApi.readDMChats(workspace, id);
             setDetails({
@@ -57,13 +52,10 @@ const Dashboard = () => {
             })
         }catch(err){
             console.log(err)
-        }finally {
-            setIsLoading(false)
         }
     }
 
     const fetchChats = async (id, component, slug = null) => {
-        setIsLoading(true)
         component === 'channel' ? await fetchChannelChats(slug) : await fetchDMChats(id)
         setActiveChat(id)
     }

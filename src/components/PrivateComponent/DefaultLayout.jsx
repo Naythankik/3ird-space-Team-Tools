@@ -15,7 +15,7 @@ const DefaultLayout = () => {
     const [removePictureModal, setRemovePictureModal] = useState(false);
 
     return (
-        <div className="flex relative">
+        <div className="flex relative max-h-screen">
             <SideWorkspaceBar />
             <Sidebar toggleProfile={setShowProfileArticle} />
             <main className="flex-1 flex bg-gray-50 min-h-screen divide-x divide-gray-400">

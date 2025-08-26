@@ -70,7 +70,7 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                             </button>
                             <input
                                 type="text"
-                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === `private ${channelOrChat.name}` ? `\\u{1F512} ${channelOrChat.name}` : '#' : 'user'}`}
+                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === 'public' ? `# ${channelOrChat.name}` : `\\u{1F512} ${channelOrChat.name}` : channelOrChat.participants.filter(c => c.id !== user.id)[0].fullName}`}
                                 className="flex-grow bg-transparent text-white p-4 text-sm focus:outline-none"
                             />
                             <button className="text-gray-400 hover:text-white p-2">
