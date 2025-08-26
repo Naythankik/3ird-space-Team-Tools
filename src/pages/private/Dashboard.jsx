@@ -12,8 +12,8 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [channels, setChannels] = useState([]);
     const [directMessages, setDirectMessages] = useState([]);
-    const [channelDetails, setChannelDetails] = useState(null);
-    const [activeChannel, setActiveChannel] = useState(null);
+    const [details, setDetails] = useState(null);
+    const [activeChat, setActiveChat] = useState(null);
 
     const { workspace } = useParams()
 
@@ -31,18 +31,41 @@ const Dashboard = () => {
         }
     }
 
-    const fetchWorkspaceChannel = async (channel) => {
-        setIsLoading(true)
+    const fetchChannelChats = async (name) => {
+        setIsLoading(true);
 
         try{
-            const { data } = await workspaceApi.readChannel(workspace, channel)
-            setChannelDetails(data)
-            setActiveChannel(channel)
+            const { data } = await workspaceApi.readChannelChats(workspace, name);
+            setDetails({
+                channelOrChat: data.channel,
+                messages: data.chats
+            })
         }catch(err){
             console.log(err)
         }finally {
             setIsLoading(false)
         }
+    }
+
+    const fetchDMChats = async (id) => {
+        setIsLoading(true);
+        try{
+            const { data } = await workspaceApi.readDMChats(workspace, id);
+            setDetails({
+                messages: data.chats.conversation,
+                channelOrChat: data.chats,
+            })
+        }catch(err){
+            console.log(err)
+        }finally {
+            setIsLoading(false)
+        }
+    }
+
+    const fetchChats = async (id, component, slug = null) => {
+        setIsLoading(true)
+        component === 'channel' ? await fetchChannelChats(slug) : await fetchDMChats(id)
+        setActiveChat(id)
     }
 
     useEffect(() => {
@@ -53,10 +76,10 @@ const Dashboard = () => {
 
     return (
         <div className="flex divide-x h-full">
-            <DashboardAside channels={channels} directMessages={directMessages} readChannel={fetchWorkspaceChannel} activeChannel={activeChannel}/>
+            <DashboardAside channels={channels} directMessages={directMessages} readChats={fetchChats} activeChat={activeChat}/>
 
-            {channelDetails ?
-                <DashboardComponent channelDetails={channelDetails} />
+            {details
+                ? <DashboardComponent channelOrChat={details.channelOrChat} messages={details.messages} />
                 : <NoOpenComponent />
             }
         </div>

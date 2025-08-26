@@ -1,9 +1,12 @@
 import React, {useState} from "react";
-import {AtSign, Plus} from "lucide-react";
+import {AtSign, ChevronDown, Plus} from "lucide-react";
 import {formattedDate} from "../../../utils/helpers.js";
+import {useAuth} from "../../../context/AuthContext.jsx";
+import {FaXmark} from "react-icons/fa6";
 
-const GroupChatComponent = ({channel = [], messages = []}) => {
+const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
     const [isMembersListOpen, setIsMembersListOpen] = useState(false);
+    const { user } = useAuth();
 
     const statusIndicator = (status) => {
         let statusColor = '';
@@ -22,21 +25,39 @@ const GroupChatComponent = ({channel = [], messages = []}) => {
         }
         return statusColor;
     }
+
+    const handleClick = () => {
+        console.log("click");
+    }
+
     return (
         <section className="flex-grow flex overflow-hidden">
             <div className="flex-grow flex bg-transparent">
                 <div className="flex-grow flex flex-col">
                     <div className="flex-grow flex-col-reverse flex p-6 overflow-y-auto">
-                        <div className="space-y-4 divide-y divide-gray-200">
+                        <div className="space-y-4 divide-gray-200">
                             {messages.map((msg, id) =>
-                                <div key={id} className="flex items-start space-x-3 p-4 pb-0 hover:bg-gray-200 rounded-lg">
-                                    <img src={msg.sender.avatar} alt={msg.sender.fullName} className="max-h-10 max-w-10 rounded-full object-cover flex-shrink-0 mt-1" />
-                                    <div>
-                                        <div className="flex items-baseline space-x-2">
-                                            <p className="font-bold text-zinc-900">{msg.sender.fullName}</p>
-                                            <p className="text-xs text-gray-500">{formattedDate(msg.createdAt)}</p>
+                                <div key={id} className={`flex ${msg.sender.id === user.id ? 'justify-end' : 'justify-start'}`}>
+                                    <div
+                                        className={`flex min-h-[7vh] relative ${msg.sender.id === user.id
+                                            ? 'flex-row-reverse bg-indigo-100 space-x-reverse space-x-3'
+                                            : 'flex-row bg-gray-200 space-x-3'} items-start group py-2 px-4 hover:bg-black/10 rounded-lg min-w-1/4 max-w-3/4`}
+                                    >
+                                        <img src={msg.sender.avatar} alt={msg.sender.fullName} className="max-h-8 max-w-8 rounded-full object-cover flex-shrink-0 mt-1" />
+                                        <button
+                                            onClick={handleClick}
+                                            className="cursor-pointer absolute bottom-2 group-hover:flex bg-gray-50 rounded-full hidden justify-center items-center">
+                                            <ChevronDown />
+                                        </button>
+                                        <div>
+                                            <div className="flex items-baseline space-x-2">
+                                                <p className="font-bold text-zinc-900">{msg.sender.fullName}</p>
+                                                <p className="text-xs text-gray-500">{formattedDate(msg.createdAt)}</p>
+                                            </div>
+                                            <p className="text-zinc-700">
+                                                {msg.content || msg.text || msg.mediaUrl}
+                                            </p>
                                         </div>
-                                        <p className="text-zinc-700">{msg.content}</p>
                                     </div>
                                 </div>
                             )}
@@ -49,7 +70,7 @@ const GroupChatComponent = ({channel = [], messages = []}) => {
                             </button>
                             <input
                                 type="text"
-                                placeholder={`Message ${channel.channelType === 'private' ? '\u{1F512}' : '#'}${channel.name}`}
+                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === `private ${channelOrChat.name}` ? `\\u{1F512} ${channelOrChat.name}` : '#' : 'user'}`}
                                 className="flex-grow bg-transparent text-white p-4 text-sm focus:outline-none"
                             />
                             <button className="text-gray-400 hover:text-white p-2">
@@ -59,12 +80,14 @@ const GroupChatComponent = ({channel = [], messages = []}) => {
                     </div>
                 </div>
             </div>
-            <aside className={`bg-gray-900 text-white w-64 flex-shrink-0 hidden md:flex flex-col transition-transform duration-300 ease-in-out ${isMembersListOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:relative absolute inset-y-0 right-0 z-10 border-l border-gray-800`}>
-                <div className="h-16 flex items-center px-4 border-b border-gray-800">
-                    <h3 className="font-bold text-white">Members - {channel.members?.length}</h3>
+
+            {isMembersListOpen && <aside className={`bg-gray-900 text-white w-64 flex-shrink-0 hidden md:flex flex-col transition-transform duration-300 ease-in-out ${isMembersListOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:relative absolute inset-y-0 right-0 z-10 border-l border-gray-800`}>
+                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+                    <h3 className="font-bold text-white">Members - {channelOrChat.members?.length}</h3>
+                    <button type="button" className="cursor-pointer" onClick={() => setIsMembersListOpen(!isMembersListOpen)}><FaXmark /></button>
                 </div>
                 <div className="flex-grow p-4 overflow-y-auto space-y-4">
-                    {channel.members?.map((member, id) => {
+                    {channelOrChat.members?.map((member, id) => {
                         return (
                             <div key={id} className="flex items-center space-x-3">
                                 <div className="relative">
@@ -83,7 +106,7 @@ const GroupChatComponent = ({channel = [], messages = []}) => {
                         );
                     })}
                 </div>
-            </aside>
+            </aside>}
         </section>
     )
 }

@@ -6,8 +6,13 @@ class WorkspaceApi {
         return data;
     }
 
-    async readChannel(workspaceId, channelId) {
-        const { data } = await axios.get(`/workspaces/${workspaceId.toString()}/channels/${channelId}`);
+    async readChannelChats(workspaceId, channelSlug) {
+        const { data } = await axios.get(`/workspaces/${workspaceId.toString()}/channels/${channelSlug}`);
+        return data;
+    }
+
+    async readDMChats(workspaceId, chatId) {
+        const { data } = await axios.get(`/workspaces/${workspaceId.toString()}/chats/${chatId}`);
         return data;
     }
 }

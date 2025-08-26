@@ -16,9 +16,9 @@ const CollapsibleChannel = ({ children, readChannel, activeChannel }) => {
                     <button
                         type="button"
                         key={idx}
-                        onClick={() => readChannel(child.slug)}
+                        onClick={() => readChannel(child.id, 'channel', child.slug)}
                         className={`flex items-center w-full justify-between px-3 py-1.5 rounded-md text-sm transition-colors duration-200 
-                        ${activeChannel === child.slug ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
+                        ${activeChannel === child.id ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
                     >
                         <div className="flex items-center space-x-2">
                             {child.channelType === 'private' ?

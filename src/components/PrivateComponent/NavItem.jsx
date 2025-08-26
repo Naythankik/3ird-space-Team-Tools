@@ -2,8 +2,8 @@ import { useLocation } from "react-router-dom";
 
 const NavItem = ({ Icon, label, path }) => {
     const { pathname } = useLocation();
-
     const isActive = pathname.includes(path);
+
     return (
         <a
             href={path}

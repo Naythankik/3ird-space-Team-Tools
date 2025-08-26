@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import CollapsibleChannel from "../CollapsibleChannel.jsx";
 import CollapsibleDMs from "../CollapsibleDMs.jsx";
 
-const DashboardAside = ({channels, directMessages, readChannel, activeChannel}) => {
+const DashboardAside = ({channels, directMessages, readChats, activeChat}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -35,8 +35,8 @@ const DashboardAside = ({channels, directMessages, readChannel, activeChannel}) 
             >
                 <div className="flex-grow p-4 overflow-y-auto">
                     <nav className="space-y-6">
-                        <CollapsibleChannel title="Channels" children={channels} readChannel={readChannel} activeChannel={activeChannel} />
-                        <CollapsibleDMs children={directMessages} />
+                        <CollapsibleChannel title="Channels" children={channels} readChannel={readChats} activeChannel={activeChat} />
+                        <CollapsibleDMs children={directMessages} readDm={readChats} activeDm={activeChat} />
                     </nav>
                 </div>
             </aside>

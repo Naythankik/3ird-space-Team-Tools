@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import PageHeader from "./PageHeader.jsx";
 import GroupChatComponent from "./chats/GroupChatComponent.jsx";
 
-export default function DashboardComponent({channelDetails}) {
+export default function DashboardComponent({channelOrChat, messages}) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -10,8 +10,8 @@ export default function DashboardComponent({channelDetails}) {
             {isSidebarOpen && <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-black/50 z-10 lg:hidden"></div>}
 
             <div className="h-full flex flex-col">
-                <PageHeader title={channelDetails?.channel?.name} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
-                <GroupChatComponent channel={channelDetails?.channel} messages={channelDetails?.chats} />
+                {/*<PageHeader title={channel?.name} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />*/}
+                <GroupChatComponent channelOrChat={channelOrChat} messages={messages} />
             </div>
         </div>
     );

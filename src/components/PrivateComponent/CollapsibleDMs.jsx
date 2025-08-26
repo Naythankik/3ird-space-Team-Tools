@@ -2,9 +2,8 @@ import {ChevronDown, ChevronRight, Plus} from "lucide-react";
 import React, {useState} from "react";
 import {useAuth} from "../../context/AuthContext.jsx";
 
-const CollapsibleDms = ({ children }) => {
+const CollapsibleDms = ({ children, readDm, activeDm  }) => {
     const [isOpen, setIsOpen] = useState(true);
-    const [isActive, setIsActive] = useState(false);
 
     const { user } = useAuth();
 
@@ -35,9 +34,12 @@ const CollapsibleDms = ({ children }) => {
             </button>
             {isOpen && <div className="space-y-1">
                 {children.map((child, idx) => (
-                    <a key={idx} href="#"
-                       className={`flex items-center justify-between px-3 py-1.5 rounded-md text-sm transition-colors duration-200 
-                       ${isActive ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
+                    <button
+                        type="button"
+                        onClick={() => readDm(child.id, 'dms')}
+                        key={idx}
+                        className={`flex items-center w-full justify-between cursor-pointer px-3 py-1.5 rounded-md text-sm transition-colors duration-200 
+                        ${activeDm === child.id ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
                     >
                         {child?.participants.filter(({id}) => id !== user.id).map(({fullName, status, avatar}, idx) => (
                             <div key={idx} className="flex items-center space-x-2">
@@ -52,7 +54,7 @@ const CollapsibleDms = ({ children }) => {
                         ))}
                         {child.unread > 0 && <span
                             className="bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5">{child?.unread}</span>}
-                    </a>))}
+                    </button>))}
                 <button className="flex items-center w-full px-3 py-1.5 text-sm text-gray-400 hover:text-white">
                     <Plus size={16} className="mr-2"/>
                     Add teammate
