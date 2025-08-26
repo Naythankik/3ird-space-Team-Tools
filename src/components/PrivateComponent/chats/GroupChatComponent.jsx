@@ -39,15 +39,15 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                             {messages.map((msg, id) =>
                                 <div key={id} className={`flex ${msg.sender.id === user.id ? 'justify-end' : 'justify-start'}`}>
                                     <div
-                                        className={`flex min-h-[7vh] relative ${msg.sender.id === user.id
+                                        className={`flex min-h-[6vh] relative ${msg.sender.id === user.id
                                             ? 'flex-row-reverse bg-indigo-100 space-x-reverse space-x-3'
-                                            : 'flex-row bg-gray-200 space-x-3'} items-start group py-2 px-4 hover:bg-black/10 rounded-lg min-w-1/4 max-w-3/4`}
+                                            : 'flex-row bg-gray-200 space-x-3'} items-start group py-2 px-4 hover:bg-black/10 rounded-lg w-fit max-w-3/4`}
                                     >
                                         <img src={msg.sender.avatar} alt={msg.sender.fullName} className="max-h-8 max-w-8 rounded-full object-cover flex-shrink-0 mt-1" />
                                         <button
                                             onClick={handleClick}
                                             className="cursor-pointer absolute bottom-2 group-hover:flex bg-gray-50 rounded-full hidden justify-center items-center">
-                                            <ChevronDown />
+                                            <ChevronDown size="15" />
                                         </button>
                                         <div>
                                             <div className="flex items-baseline space-x-2">
@@ -70,7 +70,7 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                             </button>
                             <input
                                 type="text"
-                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === 'public' ? `# ${channelOrChat.name}` : `\\u{1F512} ${channelOrChat.name}` : channelOrChat.participants.filter(c => c.id !== user.id)[0].fullName}`}
+                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === 'public' ? `# ${channelOrChat.name}` : `\u{1F512} ${channelOrChat.name}` : channelOrChat.participants.filter(c => c.id !== user.id)[0].fullName}`}
                                 className="flex-grow bg-transparent text-white p-4 text-sm focus:outline-none"
                             />
                             <button className="text-gray-400 hover:text-white p-2">
