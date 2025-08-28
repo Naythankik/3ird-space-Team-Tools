@@ -2,10 +2,9 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiHeadphoneLine } from "react-icons/ri";
 import React, {useState} from "react";
-import CollapsibleChannel from "../CollapsibleChannel.jsx";
-import CollapsibleDMs from "../CollapsibleDMs.jsx";
+import CollapsibleChat from "../CollapsibleChat.jsx";
 
-const DashboardAside = ({channels, directMessages, readChats, activeChat}) => {
+const DashboardAside = ({workspace, activeChat, openChat}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -35,8 +34,19 @@ const DashboardAside = ({channels, directMessages, readChats, activeChat}) => {
             >
                 <div className="flex-grow p-4 overflow-y-auto">
                     <nav className="space-y-6">
-                        <CollapsibleChannel title="Channels" children={channels} readChannel={readChats} activeChannel={activeChat} />
-                        <CollapsibleDMs children={directMessages} readDm={readChats} activeDm={activeChat} />
+                        <CollapsibleChat
+                            title="Channels"
+                            chats={workspace?.channels}
+                            openChat={openChat}
+                            activeChat={activeChat}
+                        />
+
+                        <CollapsibleChat
+                            title="Chats"
+                            chats={workspace?.chats}
+                            openChat={openChat}
+                            activeChat={activeChat}
+                        />
                     </nav>
                 </div>
             </aside>

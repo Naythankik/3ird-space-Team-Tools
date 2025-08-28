@@ -10,8 +10,7 @@ const workspaceApi = new WorkspaceApi();
 
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [channels, setChannels] = useState([]);
-    const [directMessages, setDirectMessages] = useState([]);
+    const [workspaceDetails, setWorkspaceDetails] = useState(null);
     const [details, setDetails] = useState(null);
     const [activeChat, setActiveChat] = useState(null);
 
@@ -22,8 +21,7 @@ const Dashboard = () => {
 
         try{
             const { data } = await workspaceApi.dashboard(workspace)
-            setChannels(data.channels)
-            setDirectMessages(data.DMs)
+            setWorkspaceDetails({...data});
         }catch(err){
             console.log(err.message)
         }finally {
@@ -56,7 +54,8 @@ const Dashboard = () => {
     }
 
     const fetchChats = async (id, component, slug = null) => {
-        component === 'channel' ? await fetchChannelChats(slug) : await fetchDMChats(id)
+        // console.log(slug)
+        // component === 'channel' ? await fetchChannelChats(slug) : await fetchDMChats(id)
         setActiveChat(id)
     }
 
@@ -68,7 +67,7 @@ const Dashboard = () => {
 
     return (
         <div className="flex divide-x h-full">
-            <DashboardAside channels={channels} directMessages={directMessages} readChats={fetchChats} activeChat={activeChat}/>
+            <DashboardAside workspace={workspaceDetails} activeChat={activeChat} openChat={fetchChats} />
 
             {details
                 ? <DashboardComponent channelOrChat={details.channelOrChat} messages={details.messages} />
