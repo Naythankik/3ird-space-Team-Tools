@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
-import PageHeader from "./PageHeader.jsx";
-import GroupChatComponent from "./chats/GroupChatComponent.jsx";
+import ChannelHeader from "./ChannelHeader.jsx";
+import ChatComponent from "./chats/ChatComponent.jsx";
+import ChatHeader from "./ChatHeader.jsx";
 
-export default function DashboardComponent({channelOrChat, messages}) {
+export default function DashboardComponent({chats, title}) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
@@ -10,8 +11,12 @@ export default function DashboardComponent({channelOrChat, messages}) {
             {isSidebarOpen && <div onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-black/50 z-10 lg:hidden"></div>}
 
             <div className="h-full flex flex-col">
-                {/*<PageHeader title={channel?.name} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />*/}
-                <GroupChatComponent channelOrChat={channelOrChat} messages={messages} />
+                {chats.channel
+                    ? <ChannelHeader info={chats.channel} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+                    : <ChatHeader info={chats.chats} onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+                }
+
+                <ChatComponent props={chats} title={title}/>
             </div>
         </div>
     );

@@ -1,16 +1,19 @@
-import {Bell, Hash, Menu, Search} from "lucide-react";
+import {Bell, Menu, Search} from "lucide-react";
 import React from "react";
 
-const PageHeader = ({title, onMenuClick}) => {
+const ChannelHeader = ({info, onMenuClick}) => {
+    console.log(info);
     return (
-        <header className="bg-gray-800 h-16 flex items-center justify-between px-6 border-b border-gray-700 flex-shrink-0">
+        <header className="bg-indigo-600 h-16 flex items-center justify-between px-6 py-3 border-b border-gray-700 flex-shrink-0">
             <div className="flex items-center">
                 <button onClick={onMenuClick} className="text-gray-400 mr-4 lg:hidden">
                     <Menu size={24} />
                 </button>
-                <div className="flex items-center space-x-2">
-                    <Hash size={24} className="text-gray-500" />
-                    <h2 className="text-xl font-bold text-white">{title}</h2>
+                <div>
+                    <div className="flex items-center space-x text-slate-100">
+                        <h2 className="text-xl font-bold capitalize">{info.type}</h2>
+                    </div>
+                    <p aria-label="channel description" title={info.description} className="line-clamp-1 text-slate-400">{info.description}</p>
                 </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -26,4 +29,4 @@ const PageHeader = ({title, onMenuClick}) => {
     )
 }
 
-export default PageHeader;
+export default ChannelHeader;

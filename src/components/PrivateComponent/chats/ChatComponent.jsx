@@ -4,9 +4,10 @@ import {formattedDate} from "../../../utils/helpers.js";
 import {useAuth} from "../../../context/AuthContext.jsx";
 import {FaXmark} from "react-icons/fa6";
 
-const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
-    const [isMembersListOpen, setIsMembersListOpen] = useState(false);
+const ChatComponent = ({props, title}) => {
+    const [isMembersListOpen, setIsMembersListOpen] = useState(true);
     const { user } = useAuth();
+    console.log(props)
 
     const statusIndicator = (status) => {
         let statusColor = '';
@@ -36,7 +37,7 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                 <div className="flex-grow flex flex-col">
                     <div className="flex-grow flex-col-reverse flex p-6 overflow-y-auto">
                         <div className="space-y-4 divide-gray-200">
-                            {messages.map((msg, id) =>
+                            {props.chats.messages.map((msg, id) =>
                                 <div key={id} className={`flex ${msg.sender.id === user.id ? 'justify-end' : 'justify-start'}`}>
                                     <div
                                         className={`flex min-h-[6vh] relative ${msg.sender.id === user.id
@@ -70,7 +71,7 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                             </button>
                             <input
                                 type="text"
-                                placeholder={`Message ${channelOrChat.channelType ? channelOrChat.channelType === 'public' ? `# ${channelOrChat.name}` : `\u{1F512} ${channelOrChat.name}` : channelOrChat.participants.filter(c => c.id !== user.id)[0].fullName}`}
+                                placeholder={`Message ${title}`}
                                 className="flex-grow bg-transparent text-white p-4 text-sm focus:outline-none"
                             />
                             <button className="text-gray-400 hover:text-white p-2">
@@ -81,13 +82,16 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
                 </div>
             </div>
 
-            {isMembersListOpen && <aside className={`bg-gray-900 text-white w-64 flex-shrink-0 hidden md:flex flex-col transition-transform duration-300 ease-in-out ${isMembersListOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:relative absolute inset-y-0 right-0 z-10 border-l border-gray-800`}>
+            {props.chats.type !== 'one-to-one'
+                && isMembersListOpen
+                && <aside className={`bg-gray-900 text-white w-64 flex-shrink-0 hidden md:flex flex-col transition-transform duration-300 ease-in-out 
+                ${isMembersListOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:relative absolute inset-y-0 right-0 z-10 border-l border-gray-800`}>
                 <div className="h-16 flex items-center justify-between px-4 border-b border-gray-800">
-                    <h3 className="font-bold text-white">Members - {channelOrChat.members?.length}</h3>
+                    <h3 className="font-bold text-white">Members - {props.chats.participants?.length}</h3>
                     <button type="button" className="cursor-pointer" onClick={() => setIsMembersListOpen(!isMembersListOpen)}><FaXmark /></button>
                 </div>
                 <div className="flex-grow p-4 overflow-y-auto space-y-4">
-                    {channelOrChat.members?.map((member, id) => {
+                    {props.chats.participants?.sort((a, b) => a.fullName.localeCompare(b.fullName)).map((member, id) => {
                         return (
                             <div key={id} className="flex items-center space-x-3">
                                 <div className="relative">
@@ -111,4 +115,4 @@ const GroupChatComponent = ({channelOrChat = [], messages = []}) => {
     )
 }
 
-export default GroupChatComponent;
+export default ChatComponent;

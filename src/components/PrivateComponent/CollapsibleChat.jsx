@@ -36,11 +36,11 @@ const ChatList = ({ title, chats, activeChat, openChat }) => {
         </button>
     );
 
-    const renderDm = (chat) => (
+    const renderChat = (chat) => (
         <button
             type="button"
             key={chat.id}
-            onClick={() => openChat(chat.id, "dms")}
+            onClick={() => openChat(chat.id, title)}
             className={`flex items-center w-full justify-between cursor-pointer px-3 py-1 rounded-md text-sm transition-colors duration-200 
             ${activeChat === chat.id ? 'bg-purple-600 text-white' : 'text-gray-300 hover:bg-indigo-400 hover:text-white'}`}
         >
@@ -80,7 +80,7 @@ const ChatList = ({ title, chats, activeChat, openChat }) => {
 
             {isOpen && (
                 <div className="space-y-1">
-                    {title === "Channels" ? chats?.map(renderChannel) : chats?.map(renderDm)}
+                    {title === "Channels" ? chats?.map(renderChannel) : chats?.map(renderChat)}
                     <button className="flex items-center w-full px-3 py-1.5 text-sm text-gray-400 hover:text-white">
                         <Plus size={16} className="mr-2"/>
                         {`Add ${title === 'Channels' ? 'channel' : 'teammate'}`}

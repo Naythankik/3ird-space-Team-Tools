@@ -11,8 +11,9 @@ const workspaceApi = new WorkspaceApi();
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [workspaceDetails, setWorkspaceDetails] = useState(null);
-    const [details, setDetails] = useState(null);
+    const [chats, setChats] = useState(null);
     const [activeChat, setActiveChat] = useState(null);
+    const [title, setTitle] = useState(null);
 
     const { workspace } = useParams()
 
@@ -29,34 +30,18 @@ const Dashboard = () => {
         }
     }
 
-    const fetchChannelChats = async (name) => {
-        try{
-            const { data } = await workspaceApi.readChannelChats(workspace, name);
-            setDetails({
-                channelOrChat: data.channel,
-                messages: data.chats
-            })
-        }catch(err){
-            console.log(err)
-        }
-    }
-
-    const fetchDMChats = async (id) => {
-        try{
-            const { data } = await workspaceApi.readDMChats(workspace, id);
-            setDetails({
-                messages: data.chats.conversation,
-                channelOrChat: data.chats,
-            })
-        }catch(err){
-            console.log(err)
-        }
-    }
-
     const fetchChats = async (id, component, slug = null) => {
-        // console.log(slug)
-        // component === 'channel' ? await fetchChannelChats(slug) : await fetchDMChats(id)
-        setActiveChat(id)
+        try{
+            const { data } = component === 'Channels'
+                ? await workspaceApi.readChannelChats(workspace, slug)
+                : await workspaceApi.readDMChats(workspace, id)
+            console.log(data)
+            setChats(data)
+            setTitle(component === 'Channels' ? 'Channels' : 'Chats')
+            setActiveChat(id)
+        }catch(err){
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -69,8 +54,8 @@ const Dashboard = () => {
         <div className="flex divide-x h-full">
             <DashboardAside workspace={workspaceDetails} activeChat={activeChat} openChat={fetchChats} />
 
-            {details
-                ? <DashboardComponent channelOrChat={details.channelOrChat} messages={details.messages} />
+            {chats
+                ? <DashboardComponent chats={chats} title={title} />
                 : <NoOpenComponent />
             }
         </div>
