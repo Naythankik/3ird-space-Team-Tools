@@ -2,29 +2,28 @@ import axios from '../../services/axios.js'
 import handleAxiosError from '../../utils/handleAxiosError.js'
 
 class AuthApi {
+
+    /**
+     * Handles the user signup process.
+     * It sends a POST request with the new user's details to the signup endpoint.
+     *
+     * @param {string} credentials - The user's full name.
+     * @returns {Promise<{token: string, user: object}>} An object containing the auth token and user data.
+     * @throws {Error} If the signup request fails or the server returns an error.
+     */
     login = async (credentials) => {
-        const { identifier, password } = credentials
+        const { identifier, password } = credentials;
 
-        try {
-            const { data } = await axios.post("/auth/login", {
-                identifier,
-                password
-            }, { withCredentials: true});
-
-            return data
-
-        } catch (error) {
-            throw handleAxiosError(error);
-        }
+        const { data } = await axios.post("/auth/login", {
+            identifier,
+            password
+        }, { withCredentials: true});
+        return data
     };
 
     registerEmail = async (email) => {
-        try {
-            const res = await axios.post("/auth/register/initialPhase", {email});
-            return res.data;
-        } catch (error) {
-            throw handleAxiosError(error);
-        }
+        const res = await axios.post("/auth/register/initialPhase", {email});
+        return res.data;
     };
 
     completeRegistration = async (token, body) => {
@@ -37,12 +36,8 @@ class AuthApi {
     };
 
     logout = async () => {
-        try {
-            const res = await axios.post("/user/logout");
-            return res.data;
-        } catch (error) {
-            throw handleAxiosError(error);
-        }
+        const res = await axios.post("/user/logout");
+        return res.data;
     }
 
     getCurrentUser = async () => {
@@ -85,15 +80,11 @@ class AuthApi {
     };
 
     verifyEmail = async (code, email) => {
-        try {
-            const res = await axios.post(
-                "/auth/register/verify-email",
-                { code, email }
-            );
-            return res.data;
-        } catch (error) {
-            throw handleAxiosError(error);
-        }
+        const res = await axios.post(
+            "/auth/register/verify-email",
+            { code, email }
+        );
+        return res.data;
     };
 
     resendVerification = async (email) => {
@@ -107,5 +98,4 @@ class AuthApi {
 
 }
 
-
-export default new AuthApi()
+export { AuthApi }

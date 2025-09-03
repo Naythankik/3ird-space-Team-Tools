@@ -2,8 +2,10 @@ import Header from "../../../components/Header.jsx";
 import Footer from "../../../components/Footer.jsx";
 import {Link, useParams} from "react-router-dom";
 import { useState } from "react";
-import authApi from "../../../features/auth/authApi.js";
+import { AuthApi } from "../../../features/auth/authApi.js";
 import { Loader } from "lucide-react";
+
+const authApi = new AuthApi();
 
 const ResetPasswordPage = () => {
     const [loading, setLoading] = useState(false)

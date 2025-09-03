@@ -1,10 +1,10 @@
 import {useLocation} from "react-router-dom";
 import {PlusIcon} from "lucide-react";
-
-const workspaces = JSON.parse(localStorage.getItem('workspaces')) || [];
+import useWorkspaceStore from "../../stores/workspaceStore.js";
 
 const SideWorkspaceBar = () => {
     const { pathname } = useLocation();
+    const { workspaces } = useWorkspaceStore()
 
     return (
         <aside className="max-w-20 bg-white border-r border-gray-300 min-h-screen p-4 flex flex-col gap-3 items-center">

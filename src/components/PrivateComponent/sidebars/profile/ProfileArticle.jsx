@@ -1,11 +1,11 @@
 import {FaEllipsisVertical, FaX} from "react-icons/fa6";
 import {FaClock, FaEnvelope, FaPhone, FaPlus} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import {useAuth} from "../../../../context/AuthContext.jsx";
 import {useEffect, useState} from "react";
+import useUserStore from "../../../../stores/userStore.js";
 
 const ProfileArticle = ({closeProfileArticle, profileModal}) => {
-    const { user } = useAuth();
+    const { user } = useUserStore();
     const [localTime, setLocalTime] = useState(getFormattedTime());
 
     function getFormattedTime() {

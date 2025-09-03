@@ -1,11 +1,11 @@
 import {PlusIcon} from "lucide-react";
 import UserMenu from "./UserMenu";
-import { useAuth } from "../../../context/AuthContext.jsx";
 import TaskMenu from "./TaskMenu.jsx";
 import {useEffect, useState} from "react";
+import useUserStore from "../../../stores/userStore.js";
 
 const SidebarActions = ({toggleProfile}) => {
-    const { user } = useAuth();
+    const { user } = useUserStore();
     const modals = ["userOptions", "taskOptions"];
     const [taskIcon, setTaskIcon] = useState(false)
 
@@ -79,7 +79,7 @@ const SidebarActions = ({toggleProfile}) => {
                 title={user?.fullName}
                 onClick={() => toggleModal("userOptions")}
                 style={{
-                    backgroundImage: `url(${user?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"})`,
+                    backgroundImage: `url(${user.avatar || "https://randomuser.me/api/portraits/men/1.jpg"})`,
                 }}
                 className="bg-black/20 bg-blend-darken text-white rounded-xl w-12 h-12 bg-cover relative hover:bg-black/30 transition focus:outline-none"
             >

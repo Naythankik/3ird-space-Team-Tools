@@ -2,18 +2,21 @@ import Header from "../../../../components/Header.jsx";
 import Footer from "../../../../components/Footer.jsx";
 import { FaMicrosoft, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
-import authApi from "../../../../features/auth/authApi.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import {BiError} from "react-icons/bi";
 import {Loader} from "lucide-react";
+import useUserStore from "../../../../stores/userStore.js";
+import {TextSuccess} from "../../../../components/helpers.jsx";
+import useCommonStore from "../../../../stores/commonStore.js";
 
 const VerifyCodePage = () => {
-    const [loading, setLoading] = useState(false);
-    const [successMessage, setSuccessMessage] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [code, setCode] = useState(["", "", "", "", "", ""]);
+    const { isLoading, error, success, setSuccess, setError } = useCommonStore();
+    const { verifyRegister, resendVerification } = useUserStore();
+
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [code, setCode] = useState(["", "", "", "", "", ""]);
 
     const handleChange = (value, index) => {
         // Allow only numbers
@@ -22,8 +25,8 @@ const VerifyCodePage = () => {
         const newCode = [...code];
         newCode[index] = value.slice(-1);
         setCode(newCode);
-        setErrorMessage(null);
-        setSuccessMessage(null);
+        setError(null);
+        setSuccess(null)
 
         if (value && index < code.length - 1) {
             document.getElementById(`code-${index + 1}`).focus();
@@ -53,7 +56,7 @@ const VerifyCodePage = () => {
         });
 
         setCode(newCode);
-        setErrorMessage(null);
+        setError(null);
 
         const lastIndex = digits.length - 1;
         if (lastIndex >= 0 && lastIndex < code.length) {
@@ -64,44 +67,16 @@ const VerifyCodePage = () => {
 
     const handleCodeRequest = async (e) => {
         e.preventDefault();
-        setLoading(true)
-        setErrorMessage(null)
-
-        try{
-            const res = await authApi.resendVerification(location.state?.email)
-            setSuccessMessage(res.message)
-            console.log(res)
-        }catch (err){
-            setErrorMessage(err || "We couldn't send you a code. Please try again later.")
-        }finally {
-            setLoading(false)
-        }
-
+        await resendVerification(location.state.email)
     }
 
     const verifyOtp = async (code, email) => {
-        setLoading(true);
+        const result = await verifyRegister(code, email);
 
-        try {
-            const { data, message } = await authApi.verifyEmail(code, email)
-            setSuccessMessage(`${message}, Redirecting to complete registration page...`)
-
-            localStorage.removeItem('verifyToken')
-            navigate(`/register/complete/${data.token}`, { state: {email: data.user.email}})
-        } catch (error) {
-            if(Array.isArray(error)){
-                error.forEach(e => {
-                    if(e.includes("otp")){
-                        setErrorMessage(e)
-                    }else{
-                        console.log(e, "Array messages")
-                    }
-                })
-            }else {
-                setErrorMessage(error)
-            }
-        }finally {
-            setLoading(false);
+        if (result?.error === 'user_not_found') {
+            navigate('/register')
+        } else if (result?.token) {
+            setTimeout(() => navigate(`/register/complete/${result.token}`, { state: {email: result?.email}}), 2000)
         }
     };
 
@@ -117,9 +92,9 @@ const VerifyCodePage = () => {
 
                 {/* Code Input */}
                 <div className="flex flex-col gap-3 items-center w-96">
-                    {successMessage ?
-                        <p className="text-green-700 text-center max-w-md">{successMessage}</p> :
-                        <p className="text-gray-700 text-center max-w-md">If you don’t see the email, check your spam or junk folder.</p>
+                    {success
+                        ? <TextSuccess message={success} />
+                        : <p className="text-gray-700 text-center max-w-md">If you don’t see the email, check your spam or junk folder.</p>
                     }
                     <form
                         className="flex items-center gap-4"
@@ -127,7 +102,7 @@ const VerifyCodePage = () => {
                     >
                         {code.map((digit, idx) => (
                             <input
-                                disabled={loading}
+                                disabled={isLoading}
                                 key={idx}
                                 id={`code-${idx}`}
                                 type="tel"
@@ -142,12 +117,12 @@ const VerifyCodePage = () => {
                         ))}
 
                     </form>
-                    {loading && <p className="flex gap-1 items-center text-gray-600 font-normal text-sm"><Loader size="16" className="animate-spin" />checking your code</p>}
+                    {isLoading && <p className="flex gap-1 items-center text-gray-600 font-normal text-sm"><Loader size="16" className="animate-spin" />checking your code</p>}
 
-                    {errorMessage &&
+                    {error &&
                         <p className="bg-red-100 w-[96%] flex items-center text-gray-700 justify-center gap-2 p-2 text-sm rounded-md">
                             <BiError className="fill-pink-700 font-medium" size="22" />
-                            <span className="text-center">{errorMessage}</span>
+                            <span className="text-center">{error}</span>
                         </p>
                     }
                 </div>
@@ -176,7 +151,7 @@ const VerifyCodePage = () => {
                 <div className="text-center text-sm space-y-2 text-gray-600">
                     <p>
                         Can’t find your code?{" "}
-                        <button disabled={loading} type="button" onClick={handleCodeRequest} className="text-indigo-600 hover:underline disabled:opacity-25">
+                        <button disabled={isLoading} type="button" onClick={handleCodeRequest} className="text-indigo-600 hover:underline disabled:opacity-25">
                             Request a new code.
                         </button>
                     </p>

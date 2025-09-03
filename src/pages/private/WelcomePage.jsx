@@ -1,34 +1,27 @@
 import {useEffect, useState} from "react";
-import axios from "../../services/axios.js";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PiHandWavingFill} from "react-icons/pi";
-import {useAuth} from "../../context/AuthContext.jsx";
 import {ChevronRight} from "lucide-react";
 import DummyImage from "../../assets/dummy.png";
+import useUserStore from "../../stores/userStore.js";
+import useCommonStore from "../../stores/commonStore.js";
+import useWorkspaceStore from "../../stores/workspaceStore.js";
+import {toast, ToastContainer} from "react-toastify";
 
 const WelcomePage = () => {
+    const {user, isAuthenticated} = useUserStore();
+    const { isLoading, error, success } = useCommonStore();
+    const { workspaces, fetchWorkspace } = useWorkspaceStore();
+
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(false);
-    const [workspaces, setWorkspaces] = useState([]);
     const [showMore, setShowMore] = useState(false);
     const [limit, setLimit] = useState(3);
 
-    const { isAuthenticated, user } = useAuth();
-
     const fetchWorkspaces = async () => {
-        setIsLoading(true)
-        try{
-            const { status, data }  = await axios.get('/user/workspaces');
-            if(status !== 200) {
-                throw new Error(
-                    'Something went wrong'
-                )
-            }
-            setWorkspaces(data.data.workspaces);
-        }catch (e){
-            console.log(e.message)
-        }finally {
-            setIsLoading(false)        }
+        const result = await fetchWorkspace()
+        return result
+            ? toast.success(success || "Workspaces fetched successfully!")
+            : toast.error(error || "Failed to fetch workspaces.")
     }
 
     const handleShowMore = () => {
@@ -42,22 +35,19 @@ const WelcomePage = () => {
     }
 
     useEffect(() => {
-        !isAuthenticated ? navigate('/login') : fetchWorkspaces()
+        isAuthenticated ? fetchWorkspaces() : navigate('/login')
     }, []);
-
-    useEffect(() => {
-        localStorage.setItem("workspaces", JSON.stringify(workspaces));
-    }, [workspaces]);
 
     return (
         <main className="flex justify-center items-center min-h-screen bg-indigo-100">
+            <ToastContainer />
             <div className="max-w-[80%] space-y-12">
         <h2 className="text-4xl font-semibold text-indigo-500">
             <PiHandWavingFill className="inline-block mr-2 animate-pulse" />
             Welcome back
         </h2>
         <div className="border border-indigo-400 outline-2 pb-2 outline-indigo-500 rounded-sm">
-            <p className="px-3 py-7 bg-indigo-300 font-medium">{`Workspace for ${user?.email}`}</p>
+            <p className="px-3 py-7 bg-indigo-300 font-medium">{`Workspace for ${user.email}`}</p>
             {isLoading ?
                 // Preloader
                 <div className="space-y-4 divide-y divide-zinc-200">
@@ -92,7 +82,7 @@ const WelcomePage = () => {
                                         <p className="font-bold">{workspace?.name}</p>
                                         <div className="flex gap-[2px] items-center">
                                             {[...Array(5)].map((_,id) =>
-                                                <img key={id} src={workspace?.members[id].avatar} alt="avatar" className="w-5 h-5 rounded-sm" />
+                                                <img key={id} src={workspace?.members[id]?.avatar} alt="avatar" className="w-5 h-5 rounded-sm" />
                                             )}
                                             <span className="text-xs font-medium text-zinc-600 ml-3">{`${workspace.members.length} members`}</span>
                                         </div>

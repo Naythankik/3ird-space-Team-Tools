@@ -1,11 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import Loader from "../components/Loader.jsx";
+import useUserStore from "../stores/userStore.js";
 
 const GuestRoute = () => {
-    const { isAuthenticated, authLoading } = useAuth();
-
-    if (authLoading) return <Loader />;
+    const { isAuthenticated } = useUserStore();
 
     return !isAuthenticated ? <Outlet /> : <Navigate to="/welcome" replace />;
 };

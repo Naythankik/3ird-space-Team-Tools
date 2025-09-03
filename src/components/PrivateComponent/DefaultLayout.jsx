@@ -2,13 +2,13 @@ import Sidebar from "./SideBar.jsx";
 import { Outlet} from "react-router-dom";
 import {useState} from "react";
 import ProfileArticle from "./sidebars/profile/ProfileArticle.jsx";
-import {useAuth} from "../../context/AuthContext.jsx";
 import ProfileModal from "./sidebars/profile/ProfileModal.jsx";
 import RemovePictureModal from "./sidebars/profile/RemovePictureModal.jsx";
 import SideWorkspaceBar from "./SideWorkspaceBar.jsx";
+import useUserStore from "../../stores/userStore.js";
 
 const DefaultLayout = () => {
-    const { user } = useAuth();
+    const { user} = useUserStore();
 
     const [showProfileArticle, setShowProfileArticle] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { PlaneTakeoffIcon, LogOutIcon } from "lucide-react";
-import { useAuth } from "../../../context/AuthContext.jsx";
+import useUserStore from "../../../stores/userStore.js";
 
 const UserMenu = ({toggleProfile}) => {
-    const { user, logout } = useAuth();
+    const { user, logout } = useUserStore();
 
     const USER_OPTIONS = {
         status :[
@@ -30,12 +30,12 @@ const UserMenu = ({toggleProfile}) => {
             className="hidden bg-blend-overlay rounded-lg border border-gray-300 bg-indigo-300 text-black/60 space-y-2 w-64 absolute bottom-2 left-16.5 shadow-lg">
             <div className="flex items-start p-4 pb-0 gap-2">
                 <img
-                    src={user?.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
+                    src={user.avatar || "https://randomuser.me/api/portraits/men/1.jpg"}
                     alt="user"
                     className="h-9 w-9 rounded-md"
                 />
                 <div className="flex-1">
-                    <p className="text-base font-semibold">{user?.fullName}</p>
+                    <p className="text-base font-semibold">{user.fullName}</p>
                     <p className="flex items-center gap-1 text-sm">
                         <span className="bg-green-500 w-2 h-2 rounded-full"></span>
                         <span className="text-xs text-black/80">Active</span>

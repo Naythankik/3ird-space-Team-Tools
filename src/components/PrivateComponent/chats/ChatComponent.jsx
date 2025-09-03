@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {AtSign, ChevronDown, Plus} from "lucide-react";
 import {formattedDate} from "../../../utils/helpers.js";
-import {useAuth} from "../../../context/AuthContext.jsx";
 import {FaXmark} from "react-icons/fa6";
+import useUserStore from "../../../stores/userStore.js";
 
 const ChatComponent = ({props, title}) => {
     const [isMembersListOpen, setIsMembersListOpen] = useState(true);
-    const { user } = useAuth();
+    const user = useUserStore((state) => state.user);
     console.log(props)
 
     const statusIndicator = (status) => {

@@ -5,48 +5,25 @@ import { FaMicrosoft, FaApple, FaSlack } from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Loader} from "lucide-react";
-import authApi from "../../../../features/auth/authApi.js";
-import randomString from "../../../../utils/randomString.js";
+import useUserStore from "../../../../stores/userStore.js";
+import useCommonStore from "../../../../stores/commonStore.js";
+import {TextError, TextSuccess} from "../../../../components/helpers.jsx";
+
 
 const RegisterPage = () => {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false)
-    const [successMessage, setSuccessMessage] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const { initialRegister } = useUserStore();
+    const { isLoading, success, error } = useCommonStore();
+
     const [email, setEmail] = useState('')
+
 
     const handleRegister = async (e) => {
         e.preventDefault()
-        setErrorMessage(null)
-        setSuccessMessage(null)
-        setLoading(true)
-        let token = localStorage.getItem('verifyToken')
-
-        try{
-            const response = await authApi.registerEmail(email)
-            setSuccessMessage(response.message)
-
-            const newToken = randomString(32)
-            localStorage.setItem('verifyToken', newToken )
-
-            setTimeout(() => {
-                navigate(`/register/verify/${newToken}`, { state: { email }})
-            }, 2000)
-
-        }catch(err){
-            const errorText = err?.response?.data?.message || err.message || String(err);
-
-            if(errorText.includes("Token has already been sent")){
-                if(!token){
-                    token = randomString(24)
-                    localStorage.setItem('verifyToken', token)
-                }
-                navigate(`/register/verify/${token}`, { state: { email }})
-            }
-            setErrorMessage(errorText)
-        }finally {
-            setLoading(false)
-        }
+        const response = await initialRegister(email);
+        setTimeout(() => {
+            navigate(`/register/verify/${response}`, { state: { email }})
+        }, 2000)
     }
 
     return (
@@ -58,15 +35,15 @@ const RegisterPage = () => {
                     <div className="text-center space-y-1">
                         <h2 className="text-2xl font-bold text-gray-800">Sign up to continue</h2>
 
-                        {errorMessage && <p className="text-center my-1 text-xs font-medium text-red-600">{errorMessage}</p>}
-                        {successMessage && <p className="text-center my-1 text-xs font-medium text-green-600">{successMessage}</p>}
+                        {error && <TextError message={error} />}
+                        {success && <TextSuccess message={success} />}
                     </div>
 
                     <form className="space-y-4" onSubmit={handleRegister}>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email address</label>
                             <input
-                                disabled={loading}
+                                disabled={isLoading}
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -98,12 +75,12 @@ const RegisterPage = () => {
                         </p>
 
                         <button
-                            disabled={loading}
+                            disabled={isLoading}
                             type="submit"
                             className="w-full cursor-pointer py-2 flex justify-center items-center gap-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition disabled:opacity-50"
                         >
                             Continue
-                            {loading && <Loader className="animate-spin" size={20} color="white" />}
+                            {isLoading && <Loader className="animate-spin" size={20} color="white" />}
                         </button>
                     </form>
 
