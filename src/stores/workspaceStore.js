@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import {createJSONStorage, persist} from "zustand/middleware";
-import useCommonStore from "./commonStore.js";
+import useCommonStore from "./commonStore.ts";
 import { WorkspaceApi } from "../features/user/workspaceApi.js";
-import axios from "../services/axios.js";
+import axios from "../services/axios.ts";
 
 const workspaceApi = new WorkspaceApi();
 

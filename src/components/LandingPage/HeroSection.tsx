@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import StatusDotComponent from "./StatusDotComponent.jsx";
-import ProgressBar from "./ProgressBar.jsx";
+import StatusDotComponent from "./StatusDotComponent";
+import ProgressBar from "./ProgressBar";
 
 const HeroSection = () => {
     const tasks = [

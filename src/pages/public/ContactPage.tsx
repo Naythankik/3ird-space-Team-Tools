@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+
+type FormSate = {
+    name: string;
+    email: string;
+    message: string;
+}
 
 const Contact = () => {
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<FormSate>({
         name: "",
         email: "",
         message: ""
     });
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         alert("Message sent! We'll get back to you soon.");
         setForm({ name: "", email: "", message: "" });
@@ -69,7 +75,7 @@ const Contact = () => {
                             <textarea
                                 name="message"
                                 id="message"
-                                rows="6"
+                                rows={6}
                                 value={form.message}
                                 onChange={handleChange}
                                 required
@@ -85,7 +91,8 @@ const Contact = () => {
                         </button>
                     </form>
                 </div>
-            </section>            <Footer />
+            </section>
+            <Footer />
         </main>
     );
 };

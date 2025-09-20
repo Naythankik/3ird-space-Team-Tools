@@ -1,11 +1,11 @@
-import Header from "../../components/Header.jsx";
-import HeroSection from "../../components/LandingPage/HeroSection.jsx";
-import FeatureSection from "../../components/LandingPage/FeatureSection.jsx";
-import WorkSection from "../../components/LandingPage/WorkSection.jsx";
-import Pricing from "../../components/LandingPage/Pricing.jsx";
-import Testimonial from "../../components/LandingPage/Testimonial.jsx";
+import Header from "../../components/Header";
+import HeroSection from "../../components/LandingPage/HeroSection";
+import FeatureSection from "../../components/LandingPage/FeatureSection";
+import WorkSection from "../../components/LandingPage/WorkSection";
+import Pricing from "../../components/LandingPage/Pricing";
+import Testimonial from "../../components/LandingPage/Testimonial";
 import {Link} from "react-router-dom";
-import Footer from "../../components/Footer.jsx";
+import Footer from "../../components/Footer";
 
 const LandingPage = () => {
     return (

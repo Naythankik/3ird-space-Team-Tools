@@ -1,7 +1,11 @@
-import axios from "axios";
-import useUserStore from "../stores/userStore.js";
+import axios, {AxiosError, type AxiosInstance, type AxiosRequestConfig} from "axios";
+import useUserStore from "../stores/userStore"
 
-const instance = axios.create({
+interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+    _retry?: boolean;
+}
+
+const instance: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
     headers: {
@@ -9,7 +13,7 @@ const instance = axios.create({
     },
 });
 
-// ✅ Always read the latest token from Zustand
+
 instance.interceptors.request.use(
     (config) => {
         const { token } = useUserStore.getState();
@@ -23,25 +27,29 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (res) => res,
-    async (error) => {
-        const originalRequest = error.config;
+    async (error: AxiosError) => {
+        const originalRequest = error.config as CustomAxiosRequestConfig;
         const { refreshToken } = useUserStore.getState();
 
         if (
             originalRequest._retry ||
-            originalRequest.url.includes("/auth/refresh-token")
+            originalRequest.url?.includes("/auth/refresh-token")
         ) {
             return Promise.reject(error);
         }
 
         if (
             error.response?.status === 401 &&
-            error.response?.data?.message === "Token expired"
+            (error.response.data as { message?: string })?.message === "Token expired"
         ) {
             originalRequest._retry = true;
             try {
                 const response = await refreshToken();
-                originalRequest.headers.Authorization = `Bearer ${response.access_token}`;
+                const newToken = (response as { access_token: string }).access_token;
+
+                if (originalRequest.headers) {
+                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+                }
 
                 return instance(originalRequest);
             } catch (refreshError) {

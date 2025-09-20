@@ -1,7 +1,14 @@
 import { StarIcon } from "lucide-react";
 
+type TestimonialProps = {
+    name: string;
+    info: string;
+    image: string;
+    comment: string;
+};
+
 const Testimonial = () => {
-    const testimonials = [
+    const testimonials: TestimonialProps[] = [
         {
             name: 'Sarah Johnson',
             info: 'Marketing Director, Acme Inc.',

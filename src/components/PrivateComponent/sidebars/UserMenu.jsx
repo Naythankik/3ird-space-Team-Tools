@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PlaneTakeoffIcon, LogOutIcon } from "lucide-react";
-import useUserStore from "../../../stores/userStore.js";
+import useUserStore from "../../../stores/userStore.ts";
 
 const UserMenu = ({toggleProfile}) => {
     const { user, logout } = useUserStore();

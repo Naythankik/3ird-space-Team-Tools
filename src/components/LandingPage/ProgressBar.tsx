@@ -1,4 +1,9 @@
-const ProgressBar = ({ title, value }) => {
+type ProgressBarProps = {
+    title: string,
+    value: string
+}
+
+const ProgressBar = ({ title, value }: ProgressBarProps) => {
     return (
         <div className="grid gap-1 my-5">
             <div className="flex justify-between items-center text-gray-800 font-medium">

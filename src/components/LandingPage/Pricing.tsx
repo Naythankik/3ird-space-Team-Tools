@@ -1,8 +1,16 @@
 import { CheckCircle2Icon } from "lucide-react";
 import {useState} from "react";
 
+type PricingPlan = {
+    title: string;
+    description: string;
+    price: number;
+    button: string;
+    features: string[];
+};
+
 const Pricing = () => {
-    const pricings = [
+    const pricing: PricingPlan[] = [
         {
             title: 'Free',
             button: 'Get Started',
@@ -59,7 +67,7 @@ const Pricing = () => {
         }
     ];
 
-    const [selectedPrice, setSelectedPrice] = useState(2);
+    const [selectedPrice, setSelectedPrice] = useState<number>(2);
 
     return (
         <section id="pricing" className="py-14 md:y-28 bg-white">
@@ -70,7 +78,7 @@ const Pricing = () => {
                 </p>
 
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12 text-left">
-                    {pricings.map(({ title, description, price, button, features }, idx) => {
+                    {pricing.map(({ title, description, price, button, features }, idx) => {
                         const isSelected = idx === selectedPrice;
                         return (
                             <div

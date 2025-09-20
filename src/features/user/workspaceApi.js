@@ -1,4 +1,4 @@
-import axios from '../../services/axios.js'
+import axios from '../../services/axios.ts'
 
 class WorkspaceApi {
     async dashboard(workspaceId) {

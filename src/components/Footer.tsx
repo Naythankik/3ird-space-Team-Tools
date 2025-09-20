@@ -3,8 +3,16 @@ import {BsTwitter} from "react-icons/bs";
 import {BiLogoFacebook, BiLogoInstagram} from "react-icons/bi";
 import HomeIcon from "../assets/logo.png";
 
+type NavLinksProps = {
+    header: string,
+    links: {
+        name: string,
+        href: string,
+    }[]
+}
+
 const Footer = () => {
-    const navLinks = [
+    const navLinks: NavLinksProps[] = [
         {
             header: 'Product',
             links: [

@@ -2,7 +2,7 @@ import {FaEllipsisVertical, FaX} from "react-icons/fa6";
 import {FaClock, FaEnvelope, FaPhone, FaPlus} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-import useUserStore from "../../../../stores/userStore.js";
+import useUserStore from "../../../../stores/userStore.ts";
 
 const ProfileArticle = ({closeProfileArticle, profileModal}) => {
     const { user } = useUserStore();

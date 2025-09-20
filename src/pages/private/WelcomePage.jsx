@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { PiHandWavingFill} from "react-icons/pi";
 import {ChevronRight} from "lucide-react";
 import DummyImage from "../../assets/dummy.png";
-import useUserStore from "../../stores/userStore.js";
-import useCommonStore from "../../stores/commonStore.js";
+import useUserStore from "../../stores/userStore.ts";
+import useCommonStore from "../../stores/commonStore.ts";
 import useWorkspaceStore from "../../stores/workspaceStore.js";
 import {toast, ToastContainer} from "react-toastify";
 

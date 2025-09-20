@@ -1,8 +1,13 @@
 import React from "react";
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
-const helpTopics = [
+type HelpTopicState = {
+    category: string;
+    articles: string[];
+}
+
+const helpTopics: HelpTopicState[] = [
     {
         category: "Getting Started",
         articles: [
@@ -76,7 +81,7 @@ const HelpCenter = () => {
                     ))}
                 </div>
             </div>
-        </section>
+            </section>
             <Footer />
         </main>
     );

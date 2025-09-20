@@ -1,5 +1,5 @@
-import StatusDotComponent from "./StatusDotComponent.jsx";
-import ProgressBar from "./ProgressBar.jsx";
+import StatusDotComponent from "./StatusDotComponent";
+import ProgressBar from "./ProgressBar";
 import { PlusIcon } from "lucide-react";
 
 const WorkSection = () => {

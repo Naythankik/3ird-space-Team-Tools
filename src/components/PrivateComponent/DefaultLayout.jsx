@@ -5,7 +5,7 @@ import ProfileArticle from "./sidebars/profile/ProfileArticle.jsx";
 import ProfileModal from "./sidebars/profile/ProfileModal.jsx";
 import RemovePictureModal from "./sidebars/profile/RemovePictureModal.jsx";
 import SideWorkspaceBar from "./SideWorkspaceBar.jsx";
-import useUserStore from "../../stores/userStore.js";
+import useUserStore from "../../stores/userStore.ts";
 
 const DefaultLayout = () => {
     const { user} = useUserStore();

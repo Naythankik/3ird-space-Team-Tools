@@ -1,13 +1,13 @@
-import Header from "../../../../components/Header.jsx";
-import Footer from "../../../../components/Footer.jsx";
+import Header from "../../../../components/Header.tsx";
+import Footer from "../../../../components/Footer.tsx";
 import { FaMicrosoft, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {BiError} from "react-icons/bi";
 import {Loader} from "lucide-react";
-import useUserStore from "../../../../stores/userStore.js";
-import {TextSuccess} from "../../../../components/helpers.jsx";
-import useCommonStore from "../../../../stores/commonStore.js";
+import useUserStore from "../../../../stores/userStore.ts";
+import {TextSuccess} from "../../../../components/helpers.tsx";
+import useCommonStore from "../../../../stores/commonStore.ts";
 
 const VerifyCodePage = () => {
     const { isLoading, error, success, setSuccess, setError } = useCommonStore();

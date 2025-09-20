@@ -1,26 +1,26 @@
-import Header from "../../../../components/Header.jsx";
-import Footer from "../../../../components/Footer.jsx";
+import Header from "../../../../components/Header";
+import Footer from "../../../../components/Footer";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft, FaApple, FaSlack } from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {type ReactNode, useState} from "react";
 import {Loader} from "lucide-react";
-import useUserStore from "../../../../stores/userStore.js";
-import useCommonStore from "../../../../stores/commonStore.js";
-import {TextError, TextSuccess} from "../../../../components/helpers.jsx";
-
+import useUserStore from "../../../../stores/userStore";
+import useCommonStore from "../../../../stores/commonStore";
+import {TextError, TextSuccess} from "../../../../components/helpers";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const { initialRegister } = useUserStore();
     const { isLoading, success, error } = useCommonStore();
 
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState<string>('')
 
-
-    const handleRegister = async (e) => {
+    const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault()
         const response = await initialRegister(email);
+        console.log(response)
+        return
         setTimeout(() => {
             navigate(`/register/verify/${response}`, { state: { email }})
         }, 2000)
@@ -145,7 +145,7 @@ const RegisterPage = () => {
     );
 };
 
-const SocialButton = ({ label, icon }) => {
+const SocialButton = ({ label, icon }: {label: string, icon: ReactNode}) => {
     return (
         <button
             type="button"

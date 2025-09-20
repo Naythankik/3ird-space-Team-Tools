@@ -1,33 +1,44 @@
-import Header from "../../../components/Header.jsx";
-import Footer from "../../../components/Footer.jsx";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
-import useUserStore from "../../../stores/userStore.js";
-import useCommonStore from "../../../stores/commonStore.js";
-import {TextError} from "../../../components/helpers.jsx";
+import React, {useState} from "react";
+import useUserStore from "../../../stores/userStore";
+import useCommonStore from "../../../stores/commonStore";
+import {TextError} from "../../../components/helpers";
+import type {LoginFormState} from "../../../types/FormTypes";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const { login } = useUserStore();
     const { isLoading, error, resetError } = useCommonStore();
 
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<LoginFormState>({
         identifier: '',
         password: '',
         rememberMe: false
     });
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         const result = await login(form);
-        result ?? navigate('/welcome');
+        if (result) {
+            navigate("/welcome");
+        }
     }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm({...form, [name]: value})
-        resetError()
-    }
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, type } = e.target;
+        const value =
+            type === "checkbox"
+                ? (e.target as HTMLInputElement).checked
+                : e.target.value;
+
+        setForm({ ...form, [name]: value });
+        resetError();
+    };
+
 
     return (
         <main className="bg-gray-100 flex flex-col justify-between items-center min-h-screen">
@@ -40,8 +51,6 @@ const LoginPage = () => {
                         ? <TextError message={error} />
                         : <p className="text-gray-500 text-sm">Sign in to your account</p>
                     }
-
-
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-5">
@@ -73,6 +82,7 @@ const LoginPage = () => {
                     <label className="flex items-center">
                         <input
                             type="checkbox"
+                            name="rememberMe"
                             checked={form.rememberMe}
                             onChange={handleChange}
                             className="mr-2 rounded"

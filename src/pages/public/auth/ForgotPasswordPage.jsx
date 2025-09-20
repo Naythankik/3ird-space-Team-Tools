@@ -1,8 +1,8 @@
-import Header from "../../../components/Header.jsx";
-import Footer from "../../../components/Footer.jsx";
+import Header from "../../../components/Header.tsx";
+import Footer from "../../../components/Footer.tsx";
 import { Link } from "react-router-dom";
 import {useState} from "react";
-import { AuthApi } from "../../../features/auth/authApi.js";
+import { AuthApi } from "../../../features/auth/authApi.ts";
 import { Loader } from "lucide-react";
 
 const authApi = new AuthApi();

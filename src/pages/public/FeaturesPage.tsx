@@ -1,8 +1,14 @@
 import React from "react";
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
-const features = [
+type FeatureProps = {
+    title: string;
+    description: string;
+    icon: string;
+}
+
+const features: FeatureProps[] = [
     {
         title: "Customizable Workflows",
         description:

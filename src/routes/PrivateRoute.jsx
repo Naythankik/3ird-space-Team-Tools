@@ -1,6 +1,6 @@
 import {Navigate, Outlet, useLocation} from "react-router-dom";
 import DefaultLayout from "../components/PrivateComponent/DefaultLayout.jsx";
-import useUserStore from "../stores/userStore.js";
+import useUserStore from "../stores/userStore.ts";
 
 const PrivateRoute = () => {
     const { isAuthenticated } = useUserStore();

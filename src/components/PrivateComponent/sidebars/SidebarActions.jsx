@@ -2,7 +2,7 @@ import {PlusIcon} from "lucide-react";
 import UserMenu from "./UserMenu";
 import TaskMenu from "./TaskMenu.jsx";
 import {useEffect, useState} from "react";
-import useUserStore from "../../../stores/userStore.js";
+import useUserStore from "../../../stores/userStore.ts";
 
 const SidebarActions = ({toggleProfile}) => {
     const { user } = useUserStore();

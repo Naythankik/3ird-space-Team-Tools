@@ -1,28 +1,32 @@
 import React from "react";
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
-const blogPosts = [
+type BlogPostState = {
+    title: string;
+    date: string;
+    author: string;
+    summary: string;
+}
+
+const blogPosts: BlogPostState[] = [
     {
         title: "5 Ways to Boost Team Productivity Using 3irdSpace",
         date: "July 18, 2025",
         author: "Alex Morgan",
-        summary:
-            "Discover practical tips for using 3irdSpace to increase your team's productivity and reduce meeting overload.",
+        summary: "Discover practical tips for using 3irdSpace to increase your team's productivity and reduce meeting overload.",
     },
     {
         title: "How We Designed a Better Workflow Experience",
         date: "June 30, 2025",
         author: "Nina Patel",
-        summary:
-            "Go behind the scenes of our latest UI update and learn how we redesigned workflows to be more intuitive.",
+        summary: "Go behind the scenes of our latest UI update and learn how we redesigned workflows to be more intuitive.",
     },
     {
         title: "3irdSpace Now Integrates with Google Calendar",
         date: "June 10, 2025",
         author: "Product Team",
-        summary:
-            "You can now sync tasks and deadlines with Google Calendar here’s how to set it up and make the most of it.",
+        summary: "You can now sync tasks and deadlines with Google Calendar here’s how to set it up and make the most of it.",
     },
 ];
 
@@ -31,7 +35,7 @@ const Blog = () => {
         <main className="min-h-screen flex flex-col justify-between">
             <Header />
             <section className="py-20 px-6 md:px-16 bg-white text-gray-800">
-            <div className="max-w-5xl mx-auto">
+                <div className="max-w-5xl mx-auto">
                 <h1 className="text-4xl font-bold text-center text-gray-900 mb-6">
                     Insights & Updates from 3irdSpace
                 </h1>
@@ -57,7 +61,7 @@ const Blog = () => {
                     ))}
                 </div>
             </div>
-        </section>
+            </section>
             <Footer />
         </main>
 

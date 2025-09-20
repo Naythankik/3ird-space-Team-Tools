@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import useUserStore from "../stores/userStore.js";
+import useUserStore from "../stores/userStore.ts";
 
 const GuestRoute = () => {
     const { isAuthenticated } = useUserStore();

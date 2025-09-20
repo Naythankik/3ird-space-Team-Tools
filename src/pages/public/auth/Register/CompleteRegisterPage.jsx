@@ -1,11 +1,11 @@
-import Header from "../../../../components/Header.jsx";
-import Footer from "../../../../components/Footer.jsx";
+import Header from "../../../../components/Header.tsx";
+import Footer from "../../../../components/Footer.tsx";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 import {Eye, EyeOff, Loader} from "lucide-react";
-import useCommonStore from "../../../../stores/commonStore.js";
-import useUserStore from "../../../../stores/userStore.js";
-import {TextError, TextSuccess} from "../../../../components/helpers.jsx";
+import useCommonStore from "../../../../stores/commonStore.ts";
+import useUserStore from "../../../../stores/userStore.ts";
+import {TextError, TextSuccess} from "../../../../components/helpers.tsx";
 
 
 const CompleteRegister = () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../../components/Header.jsx";
-import Footer from "../../components/Footer.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const About = () => {
     return (
@@ -15,7 +15,7 @@ const About = () => {
                     </p>
                     <p className="text-lg leading-7 mb-4">
                         Founded with a passion for collaboration and productivity, we've built a tool that empowers teams to reduce
-                        meeting time, improve visibility across projects, and make better decisions — faster. Whether you're managing
+                        meeting time, improve visibility across projects, and make better decisions faster. Whether you're managing
                         design feedback, sprint planning, or campaign execution, 3irdSpace helps you stay aligned and move forward.
                     </p>
                     <p className="text-lg leading-7 mb-4">

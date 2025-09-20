@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {AtSign, ChevronDown, Plus} from "lucide-react";
 import {formattedDate} from "../../../utils/helpers.js";
 import {FaXmark} from "react-icons/fa6";
-import useUserStore from "../../../stores/userStore.js";
+import useUserStore from "../../../stores/userStore.ts";
 
 const ChatComponent = ({props, title}) => {
     const [isMembersListOpen, setIsMembersListOpen] = useState(true);
